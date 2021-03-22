@@ -3,8 +3,7 @@ session_start();
 
 include('./../includes/db.php');
 
-
-$role = 'estudiante'; 
+$role = 'admin'; 
 
 if(isset($_POST['submited'])){
 
@@ -12,10 +11,10 @@ if(isset($_POST['submited'])){
     $pass = $_POST['pass'];
 
     if(query_db($username,$pass,$role)){
-        header('location: /estudiante/index.php'); //Redirigimos a la parte de estudiantes.
+        header('location: /admin/index.php'); //Redirigimos a la parte de estudiantes.
         exit;
     } else {
-        $error = '<p class="error"> El nombre de usario y/o contraseña introducidos no pertenecen a un perfil de estudiante valido </p>'; //Mensaje de error generico para evitar una posible enumeración de usuarios.
+        $error = '<p class="error"> El nombre de usario y/o contraseña introducidos no pertenecen a un perfil de administración valido </p>'; //Mensaje de error generico para evitar una posible enumeración de usuarios.
     }
 
 
@@ -27,7 +26,7 @@ if(isset($_POST['submited'])){
     <head>
 
         <meta charset="utf-8"/>
-        <title> Portal de estudiantes </title>
+        <title> Panel de Administración </title>
 
     </head>
     <body>
@@ -74,7 +73,7 @@ if(isset($_POST['submited'])){
 
         <div id="card">
             <div>
-            <h2>Portal de estudiantes</h2>
+            <h2>Panel de Administración</h2>
             </div>
                 <form action="login.php" method=post onsubmit="document.getElementById('unlockbtn').disabled=true;"> 
 
