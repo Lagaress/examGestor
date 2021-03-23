@@ -8,7 +8,7 @@ $role = 'estudiante';
 
 if(isset($_POST['submited'])){
 
-    $username = $_POST['username'] ; 
+    $username = $_POST['username']; 
     $pass = $_POST['pass'];
 
     if(query_db($username,$pass,$role)){
@@ -17,7 +17,6 @@ if(isset($_POST['submited'])){
     } else {
         $error = '<p class="error"> El nombre de usario y/o contraseña introducidos no pertenecen a un perfil de estudiante valido </p>'; //Mensaje de error generico para evitar una posible enumeración de usuarios.
     }
-
 
 }
 

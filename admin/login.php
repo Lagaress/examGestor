@@ -16,8 +16,6 @@ if(isset($_POST['submited'])){
     } else {
         $error = '<p class="error"> El nombre de usario y/o contraseña introducidos no pertenecen a un perfil de administración valido </p>'; //Mensaje de error generico para evitar una posible enumeración de usuarios.
     }
-
-
 }
 
 ?>
