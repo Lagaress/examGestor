@@ -1,5 +1,7 @@
 <?php
 
+include('config.php');
+
 // Función para abrir la conexión 
 function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL) 
 {
@@ -10,8 +12,8 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 	{
 
 		echo 'Conexion con éxito <br/>' ; 
-		//echo 'Información sobre el servidor:' , mysqli_get_host_info($conexion) , '<br/>' ; 
-		//echo 'Versión del servidor:' , mysqli_get_server_info($conexion) , '<br/>' ; 
+		echo 'Información sobre el servidor:' , mysqli_get_host_info($conexion) , '<br/>' ; 
+		echo 'Versión del servidor:' , mysqli_get_server_info($conexion) , '<br/>' ; 
 
 		$ok = mysqli_select_db($conexion,'exam_gestor') ; 
 
@@ -30,7 +32,7 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 		}
 
 		// Hacemos la consulta a la BD
-		/*
+
 		$consulta = mysqli_query($conexion , 'SELECT * FROM usuarios') ; 
 		if ($consulta === FALSE)
 		{
@@ -46,7 +48,7 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 			echo 'El numero de usuarios en la BD es: ' , mysqli_num_rows($consulta) , '<br/>' ; 
 
 
-		}*/
+		}
 
 	}
 
@@ -103,15 +105,16 @@ function desconectarLaBD ($conexion)
 //desconectarLaBD($conexion) ;
 
 
-function query_db($id,$pass,$role){
+function login_query($id,$pass,$role){
     
-	$db = conectarConLaBD('localhost','teresa','ranateresa','exam_gestor') ; 
+	$db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE); 
+	
+	
 	//Construimos la query (Asumimos que hemos limpiado los inputs antes de llamar a esta función)
 	$sql = "SELECT 1 FROM usuarios WHERE username = '$id' AND password = '$pass' AND rol =  '$role'";
 
 	//Lanzando query
 	$result = mysqli_query($db,$sql);
-
 	$result = mysqli_fetch_array($result,MYSQLI_BOTH);
     
     return (bool) $result;

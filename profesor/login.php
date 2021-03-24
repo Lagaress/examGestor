@@ -10,7 +10,7 @@ if(isset($_POST['submited'])){
     $username = $_POST['username'] ; 
     $pass = $_POST['pass'];
 
-    if(query_db($username,$pass,$role)){
+    if(login_query($username,$pass,$role)){
         header('location: /admin/index.php'); //Redirigimos a la parte de estudiantes.
         exit;
     } else {
