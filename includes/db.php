@@ -9,9 +9,9 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 	if ($conexion) // Si la conexion se establece de forma correcta => $conexion = true 
 	{
 
-		echo 'Conexion con éxtio <br/>' ; 
-		echo 'Información sobre el servidor:' , mysqli_get_host_info($conexion) , '<br/>' ; 
-		echo 'Versión del servidor:' , mysqli_get_server_info($conexion) , '<br/>' ; 
+		echo 'Conexion con éxito <br/>' ; 
+		//echo 'Información sobre el servidor:' , mysqli_get_host_info($conexion) , '<br/>' ; 
+		//echo 'Versión del servidor:' , mysqli_get_server_info($conexion) , '<br/>' ; 
 
 		$ok = mysqli_select_db($conexion,'exam_gestor') ; 
 
@@ -30,6 +30,7 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 		}
 
 		// Hacemos la consulta a la BD
+		/*
 		$consulta = mysqli_query($conexion , 'SELECT * FROM usuarios') ; 
 		if ($consulta === FALSE)
 		{
@@ -45,7 +46,7 @@ function conectarConLaBD ($url=NULL,$user=NULL,$password=NULL)
 			echo 'El numero de usuarios en la BD es: ' , mysqli_num_rows($consulta) , '<br/>' ; 
 
 
-		}
+		}*/
 
 	}
 
@@ -86,6 +87,7 @@ function desconectarLaBD ($conexion)
 	}
 
 	else
+
 	{
 
 		echo 'La conexión no está abierta. <br/>' ;
@@ -96,28 +98,26 @@ function desconectarLaBD ($conexion)
 }
 
 // Primera prueba de conexión/desconexión 
-echo '<b>Primera prueba</b><br/>' ;
-$conexion = conectarConLaBD('localhost','teresa','ranateresa') ; 
-desconectarLaBD($conexion) ;
+//echo '<b>Primera prueba</b><br/>' ;
+//$conexion = conectarConLaBD('localhost','teresa','ranateresa') ; 
+//desconectarLaBD($conexion) ;
 
-/*
+
 function query_db($id,$pass,$role){
-    $conex = mysqli_connect();
-    mysqli_select_db($conex,'usuarios');
-    $sql = 'SELECT 1 FROM usuarios';
-    $sql.= 'WHERE username = ? AND password = ? AND ROLE = ?';
-    $query = mysqli_stmt_init($conex);
-    $ok = mysqli_stmt_prepare($conex, $query);
-    $ok = mysqli_stmt_bind_param($query,'sss',$id,$pass,$role);
-    $ok = mysqli_stmt_execute($query);
-    mysqli_stmt_bind_result($query,$NoSeQueNombrePonerleAEsteParametro);
-    $ok = mysqli_stmt_fetch($query);
-    mysqli_stmt_free_result($query);
+    
+	$db = conectarConLaBD('localhost','teresa','ranateresa','exam_gestor') ; 
+	//Construimos la query (Asumimos que hemos limpiado los inputs antes de llamar a esta función)
+	$sql = "SELECT 1 FROM usuarios WHERE username = '$id' AND password = '$pass' AND rol =  '$role'";
 
-    return $NoSeQueNombrePonerleAEsteParametro;
+	//Lanzando query
+	$result = mysqli_query($db,$sql);
+
+	$result = mysqli_fetch_array($result,MYSQLI_BOTH);
+    
+    return (bool) $result;
 }
 
- */
+
 
 
 
