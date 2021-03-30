@@ -1,0 +1,59 @@
+.realizarexamen{
+    text-decoration: none;
+    padding: 40px;
+    font-family: arial;
+    text-transform: uppercase;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-weight: 1000;
+    font-size: 20px;
+    color: black;
+    background-color: #C0C0C0;
+  }
+  .realizarexamen:hover{
+    color: black;
+    background-color: rgb(5, 255, 242);
+    text-decoration: none;
+  }
+
+  .visualizarcalificaciones{
+    text-decoration: none;
+    padding: 40px;
+    font-family: arial;
+    text-transform: uppercase;
+    padding-left: 20px;
+    padding-right: 20 px;
+    font-weight: 1000;
+    font-size: 20px;
+    color: black;
+    background-color: #C0C0C0;
+  }
+  .visualizarcalificaciones:hover{
+    color:black;
+    background-color:greenyellow;
+    text-decoration: none;
+  }
+
+  table {
+    width:100%;
+}
+thead {
+    display: none;
+}
+tr:nth-of-type(2n) {
+    background-color: inherit;
+}
+tr td:first-child {
+    background: #f0f0f0;
+    font-weight:bold;
+    font-size:1.3em;
+}
+tbody td {
+    display: block;
+    text-align:center;
+}
+tbody td:before {
+    content: attr(data-th);
+    display: block;
+    text-align:center;
+}

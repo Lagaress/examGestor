@@ -1,0 +1,23 @@
+body{
+    background-color :khaki;
+}
+
+.encabezado {
+    table-layout: auto;
+    width: 100%;
+    border: 10px black;
+    border-collapse: collapse;
+}
+
+.filas {
+    border: black 3px solid;
+    background-color:lightskyblue;
+}
+
+.titulos { 
+    border: black 5px solid;
+    background-color: red;
+}
+td{
+    border: black 3px solid;
+}
