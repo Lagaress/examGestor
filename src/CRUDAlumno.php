@@ -8,7 +8,8 @@ session_start();
         echo "no hay autorizacion";
         die();
     }
-    $nopass = '';
+    if($_SESSION['nopass'] == 'nopass')
+        $_SESSION['nopass']="<p style='color : red; '>Las contraseñas no coinciden</p>";
  ?>
 
 
@@ -17,7 +18,7 @@ session_start();
 <html>
 <head>
     <meta content="charset=utf-8" />
-    <title>PanelProfesor</title>
+    <title>Crear Alumno</title>
     <link href="../templates/paneladmin.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -34,11 +35,11 @@ session_start();
                 <input type="text" name="apellidos"  value="" placeholder="Apellidos" required > <br>
                 <input type="text" name="dni"  value="" placeholder="DNI" required > <br>
                 <input type="text" name="user" value="" placeholder="Usuario" required> <br>
-                <input type="password" name="pass" value="" placeholder="Contraseña" > <br>
-                <input type="password" name="repass"  value="" placeholder="Repite contraseña" > <br>
+                <input type="password" name="pass" value="" placeholder="Contraseña" required> <br>
+                <input type="password" name="repass"  value="" placeholder="Repite contraseña" required> <br>
                 <?php 
-                    if($_SESSION['nopass'] == 'nopass')
-                        echo "<p style='color : red; '>Las contraseñas no coinciden</p>"
+                    echo  $_SESSION['nopass'];
+
                 ?>
                 <input name="archivo" type="file" />
                 <br>
@@ -57,7 +58,7 @@ session_start();
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura" required ><br>
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura" required ><br>
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura" required ><br>
-                <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura" required ><br>
+                <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura"  ><br>
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura"  ><br>
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura"  ><br>
                 <input style="width: 500px;" type="text" name="matricula[]" placeholder="Asignatura"  ><br>
@@ -76,4 +77,3 @@ session_start();
 
 </body>
 </html>
-

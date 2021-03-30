@@ -1,21 +1,28 @@
 <?php 
-    $dni = $_POST['dni'];
+    session_start();
+    if(isset($_POST['dni'])){
+        $dni = $_POST['dni'];
+        $_SESSION['DNI'] = $dni;
+    }else
+        $dni = $_SESSION['DNI'];
 
-    $conexionpersona = mysqli_connect('localhost','root', '777303', 'universidad');
+    $conexionprof = mysqli_connect('localhost','root', '777303', 'universidad');
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();
     }
 
+    if($_SESSION['nopass'] == 'nopass'){
+        $_SESSION['nopass']="<p style='color : red; '>Las contraseñas no coinciden</p>";
+    }else
 
-    $consultapersona = mysqli_query($conexionpersona ,"SELECT * FROM persona WHERE DNI='$dni'");
-    $consultaprof= mysqli_query($conexionpersona ,"SELECT * FROM profesor WHERE DNI='$dni'");
+  
+    $consultapersona = mysqli_query($conexionprof ,"SELECT * FROM persona WHERE DNI='$dni'");
+    $consultaprof= mysqli_query($conexionprof ,"SELECT * FROM profesor WHERE DNI='$dni'");
 
     $persona = mysqli_fetch_array($consultapersona);
     $prof = mysqli_fetch_array($consultaprof);
     
-
-
 
 ?>
 
@@ -45,18 +52,13 @@
                     <input type=\"hidden\" name=\"ID\" value=\"".$persona['ID']." \" >
                     <input type=\"text\" name=\"nombre\" placeholder=\"nombre\" value=\"".$persona['NOMBRE']." \" >NOMBRE<br>
                     <input type=\"text\" name=\"apellidos\" placeholder=\"apellidos\" value=\"".$persona['APELLIDOS']." \" >APELLIDOS<br>
-                    <input type=\"text\" name=\"tipo\" placeholder=\"tipo\" value=\"".$persona['TIPO']." \" >TIPO<br>
                     <input type=\"text\" name=\"dni\" placeholder=\"dni\" value=\"".$persona['DNI']." \" >DNI<br>
                     <input type=\"text\" name=\"user\" placeholder=\"user\" value=\"".$persona['USER']." \" >USER<br>
-                    <input type=\"password\" name=\"pass\"  placeholder=\"pass\" value=\"".$persona['PASS']." \" >PASS<br>
-                    <input type=\"password\" name=\"repass\"  placeholder=\"pass\" value=\"".$persona['PASS']." \" >PASS<br>";
+                    <input type=\"password\" name=\"pass\"  placeholder=\"pass\" >PASS<br>
+                    <input type=\"password\" name=\"repass\"  placeholder=\"pass\" >PASS<br>";
 
                 
-                    if($_SESSION['nopass'] == 'nopass')
-                        echo "<p style='color : red; '>Las contraseñas no coinciden</p>";
-
-                        if($_SESSION['notipo'] == 'notipo')
-                        echo "<p style='color : red; '>El tipo de cuenta no es valido</p>";
+                echo $_SESSION['nopass'];
 
                 echo "<br><input name=\"archivo\" type=\"file\" />
                     <br>
@@ -73,8 +75,6 @@
 
     
     
-
-
 </body>
 </html>
 

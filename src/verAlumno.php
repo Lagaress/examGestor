@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ejercicio 1</title>
+        <title>Ver Alumno</title>
         <link href="../templates/tabla.css" rel="stylesheet" type="text/css">
     </head>
     <body>
@@ -16,11 +16,13 @@
 
         
         $consulta = mysqli_query($conexionadmin, "SELECT * FROM persona where TIPO='ALUMNO'");
-        $consultaalum = mysqli_query($conexionadmin, "SELECT * FROM alumno");
         $numcol = mysqli_num_rows($consulta);
 
         for( $i = 0 ; $i < $numcol ; $i++ ){
             $fila = mysqli_fetch_array($consulta);
+            $actdni = $fila['DNI'];
+            $consultaalum = mysqli_query($conexionadmin, "SELECT * FROM alumno where DNI='$actdni'");
+
             $filaalum = mysqli_fetch_array($consultaalum);
 
             if($i == 0){

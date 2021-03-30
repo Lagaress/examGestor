@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ejercicio 1</title>
+        <title>Ver Profesor</title>
         <link href="../templates/tabla.css" rel="stylesheet" type="text/css">
     </head>
     <body>

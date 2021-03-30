@@ -1,5 +1,6 @@
 <?php 
-
+    session_start();
+    $_SESSION['nopass']=" ";
 
     $update = mysqli_connect('localhost','root', '777303', 'universidad');
     if (mysqli_connect_errno()) {
@@ -17,15 +18,11 @@
     $repass = $_POST['repass'];
 
     if($pass != $repass){
-        session_start();
         $_SESSION['nopass']='nopass';
-        header("Location: modadminr.php");
-    }
-    if( $tipo != 'PROFESOR' || $tipo != 'ALUMNO' || $tipo != 'ADMIN' ){
-        session_start();
-        $_SESSION['notipo']='notipo';
         header("Location: modadmin.php");
+        die();
     }
+  
 
     $consulta = mysqli_query($update ,"SELECT * FROM persona WHERE ID='$id'");
     $fila = mysqli_fetch_array($consulta);
@@ -33,12 +30,14 @@
 
     $directorio = '../../imgs/';
     $archivo = basename($_FILES['archivo']['name']);
+    if($archivo==NULL)
+        $archivo='default.jpg';
     $subir_archivo = $directorio.$archivo;
 
     if(move_uploaded_file($_FILES['archivo']['tmp_name'], $subir_archivo))
         echo "El archivo es válido y se cargó correctamente.<br><br>";
 
-    mysqli_query($update ,"UPDATE persona SET NOMBRE='$nombre' ,APELLIDOS='$apellidos' , TIPO='$tipo' , DNI='$dni', 
+    mysqli_query($update ,"UPDATE persona SET NOMBRE='$nombre' ,APELLIDOS='$apellidos' , DNI='$dni', 
                         PASS='$pass' , USER='$user' , FOTO='$archivo' WHERE ID='$id' ");
 
     mysqli_close($update);

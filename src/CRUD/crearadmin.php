@@ -11,18 +11,16 @@
     $repass = $_POST['repass'];
 
     
-    if($pass != $repass){
+    if($pass!=$repass){
+        $_SESSION['nopass']='nopass';
         header("Location: failpassadmin.php");
+        die();
     }
-
-    if($pass == null)   
-        $pass = $dni;
-
 
 
     $directorio = '../../imgs/';
     $archivo = basename($_FILES['archivo']['name']);
-    if($archivo == NULL)
+    if( $archivo == NULL)
         $archivo = "default.jpg";
     $subir_archivo = $directorio.$archivo;
 

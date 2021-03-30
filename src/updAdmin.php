@@ -13,7 +13,8 @@
              printf("Conexión fallida: %s\n", mysqli_connect_error());
              die();
          }
-     
+        session_start();
+        $_SESSION['nopass']=" ";
 
         
         $consulta = mysqli_query($conexionadmin, "SELECT * FROM persona where TIPO='ADMIN'");
@@ -49,7 +50,7 @@
         }
         echo "</table></form>";
     
-            
+        $_SESSION['DNI']=$dni;
         mysqli_close($conexionadmin);
         
         echo " <br>   <form action=\"./paneladmin.php\" >

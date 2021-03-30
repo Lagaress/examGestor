@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ejercicio 1</title>
+        <title>Ver Admin</title>
         <link href="../templates/tabla.css" rel="stylesheet" type="text/css">
     </head>
     <body>
@@ -38,8 +38,7 @@
             }
                 $filename = $fila['FOTO']; //nombre de la imagen
                 $dir = "../imgs/".$filename ;  //directorio en ella, lo hago asi porque emborronaba la legibilidad en href ./imgs/filename con las comas y demás
-                 
-                $matr =str_replace(",", " ", $filaprof['ASIGASOC'] );
+    
 
                 echo  
                 "<tr class=\"filas\" >

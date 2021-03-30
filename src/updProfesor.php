@@ -13,7 +13,8 @@
              printf("Conexión fallida: %s\n", mysqli_connect_error());
              die();
          }
-     
+         session_start();
+         $_SESSION['nopass']=" ";
 
         
         $consulta = mysqli_query($conexionprof, "SELECT * FROM persona where TIPO='PROFESOR'");
@@ -50,7 +51,7 @@
         echo "</table></form><br>";
     
             
-        mysqli_close($conexionadmin);
+        mysqli_close($conexionprof);
         
         echo "<form action=\"./paneladmin.php\" >
         <input type=\"submit\" value=\"Volver\" />

@@ -9,20 +9,18 @@
     $user = $_POST['user'];
     $pass = $_POST['pass'];
     $repass = $_POST['repass'];
-
     
-    if($pass != $repass){
-        header("Location: failpass.php");
-    }
-
-    if($pass == null)   
-        $pass = $dni;
-
+    if($pass!=$repass){
+        $_SESSION['nopass']='nopass';
+        header("Location: failpassprof.php");
+        die();
+    }else
+        $_SESSION['nopass']='';
 
 
     $directorio = '../../imgs/';
     $archivo = basename($_FILES['archivo']['name']);
-    if($archivo == NULL)
+    if(  $archivo == NULL)
         $archivo = "default.jpg";
     $subir_archivo = $directorio.$archivo;
 
@@ -56,7 +54,7 @@
    
 
     mysqli_query($conexionprof ,"INSERT INTO profesor (ASIGASOC,DNI) VALUES
-    ('$imp' , '$dni' )");
+    ('$imp','$dni' )");
 
     mysqli_close($conexionprof);
     mysqli_close($conexionpersona);

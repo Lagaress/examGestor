@@ -3,6 +3,7 @@ session_start();
     $nombresesion = $_SESSION['nombre'];
     $apellsesion = $_SESSION['apellidos'];
     $fotosesion = $_SESSION['foto'];
+    $_SESSION['nopass']='';
     if($nombresesion ==null || $apellsesion==null){
         echo "no hay autorizacion";
         die();
@@ -16,21 +17,21 @@ session_start();
 <html>
 <head>
     <meta content="charset=utf-8" />
-    <title>PanelProfesor</title>
+    <title>PanelAdmin</title>
     <link href="../templates/paneladmin.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-    <h1 style="column-span: all; text-align: center">Panel de control del Administrador: <?php echo $nombresesion." ".$apellsesion ?></h1>
+    <h1 style="text-align: center">Panel de control del Administrador: <?php echo $nombresesion." ".$apellsesion ?></h1>
     
 
     <table style="text-align: center;">
         <tr> 
             <th>
-                <a href="" class="gestionpreguntas">Gestion de preguntas</a>
+                
             </th>
             <th>            
-                <a href="" class="gestionresultados">Gestion de resultados</a>
+              
             </th>
             <th>
                 <?php
@@ -40,10 +41,10 @@ session_start();
         </tr>
         <tr>
             <th>
-                <a href="" class="realizarexamen">Realizar examenes</a>
+               
             </th>
             <th>            
-                <a href="" class="visualizarcalificaciones">Ver calificaciones</a>
+               
             </th>
             <th>
                 <a type="button" href="cerrarsesion.php" >Cerrar sesion</a>
