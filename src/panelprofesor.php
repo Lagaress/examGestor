@@ -30,7 +30,7 @@ session_start();
                     <a href="" class="gestionpreguntas">Gestion de preguntas</a>
                 </th>
                 <th>            
-                    <a href="" class="gestionresultados">Gestion de resultados</a>
+                    <a href="gestionResultados.php" class="gestionresultados">Gestion de resultados</a>
                 </th>
                 <th>
                     <?php
