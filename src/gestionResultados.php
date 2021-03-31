@@ -9,6 +9,9 @@
 	<h1>Calificaciones del profesor</h1>
 	<?php
 
+echo $_SESSION['DNI'] ;
+
+
 	// Nos conectamos a la BD
 	$conexionadmin = mysqli_connect('localhost','root', '777303', 'universidad');
 		 if (mysqli_connect_errno()) 
@@ -18,7 +21,6 @@
 		 }
 
 	// Obtenemos el DNI	del profesor que ha iniciado sesión 
-
 
 	// Consulta SQL	 
 	$consulta = mysqli_query($conexionadmin, "SELECT ALUM_DNI as DNI , 
