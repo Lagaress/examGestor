@@ -8,10 +8,6 @@
 <body>
 	<h1>Calificaciones del profesor</h1>
 	<?php
-
-echo $_SESSION['DNI'] ;
-
-
 	// Nos conectamos a la BD
 	$conexionadmin = mysqli_connect('localhost','root', '777303', 'universidad');
 		 if (mysqli_connect_errno()) 
@@ -21,7 +17,9 @@ echo $_SESSION['DNI'] ;
 		 }
 
 	// Obtenemos el DNI	del profesor que ha iniciado sesión 
-
+	session_start();
+	$dnisesion = $_SESSION['dni'];
+	
 	// Consulta SQL	 
 	$consulta = mysqli_query($conexionadmin, "SELECT ALUM_DNI as DNI , 
 												NOTA as NOTA , 
@@ -31,7 +29,7 @@ echo $_SESSION['DNI'] ;
 												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA > 8 ) as SOBRESALIENTES , 
 												ROUND(AVG(NOTA), 2) as MEDIA
 												FROM calificaciones c, asignaturas a , profesor p , examenes e
-												WHERE p.DNI = '44353321I' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
+												WHERE p.DNI = $dnisesion AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
 												GROUP BY ALUM_DNI"
 							);
 
