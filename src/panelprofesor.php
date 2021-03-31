@@ -3,6 +3,7 @@ session_start();
     $nombresesion = $_SESSION['nombre'];
     $apellsesion = $_SESSION['apellidos'];
     $fotosesion = $_SESSION['foto'];
+    $dnisesion = $_SESSION['dni'];
     if($nombresesion ==null || $apellsesion==null){
         echo "no hay autorizacion";
         die();

@@ -18,6 +18,7 @@ function autentificado($user, $pass){
         $_SESSION['nombre'] = $sujeto['NOMBRE'];
         $_SESSION['apellidos'] = $sujeto['APELLIDOS'];
         $_SESSION['foto'] = $sujeto['FOTO'];
+        $_SESSION['dni'] = $sujeto['DNI'];
     }
     return $numuser;
 }
