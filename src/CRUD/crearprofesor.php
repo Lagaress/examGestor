@@ -40,23 +40,14 @@
     mysqli_query($conexionpersona ,"INSERT INTO persona (ID,NOMBRE,APELLIDOS,TIPO,DNI,PASS,USER,FOTO ) VALUES
     (NULL,'$nombre' , '$apellidos' , 'PROFESOR', '$dni' , '$pass' , '$user' , '$archivo')");
 
-    
-
-    $conexionprof = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
-    if (mysqli_connect_errno()) {
-        printf("Conexión fallida: %s\n", mysqli_connect_error());
-        die();
-    }
-
 
     $imparte = $_POST['matricula'];
     $imp = implode(",", $imparte);
    
 
-    mysqli_query($conexionprof ,"INSERT INTO profesor (ASIGASOC,DNI) VALUES
+    mysqli_query($conexionpersona ,"INSERT INTO profesor (ASIGASOC,DNI) VALUES
     ('$imp','$dni' )");
 
-    mysqli_close($conexionprof);
     mysqli_close($conexionpersona);
 
     header("Location: profaniadido.php");

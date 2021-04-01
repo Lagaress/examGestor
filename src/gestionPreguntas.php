@@ -32,18 +32,21 @@
         }
 
         // # Creamos la consulta para obtener las asignaturas del profesor
-        $consulta = mysqli_query($conexionadmin , "SELECT ASIGASOC FROM profesor WHERE DNI = $dnisesion") or die ("Problemas con la consulta") ;
+        $consulta = mysqli_query($conexionadmin , "SELECT ASIGASOC FROM profesor WHERE DNI = '$dnisesion' ") or die ("Problemas con la consulta") ;
+
+        $fila = mysqli_fetch_all($consulta);
 
         // # Separamos las asignaturas que están  entre comas
-        $arrayAsignaturas = split(',' , $consulta) ;        
+        $arrayAsignaturas = explode(',' , $fila[0][0]) ;        
 
         // CREAMOS LA SELECCIÓN MÚLTIPLE DE LAS ASIGNATURAS => PASAMOS LOS DATOS POR POST
-        echo "<form name=\"seleccionAsignaturasPreguntas\" method=\"post\" action=\"CRUDpreguntas.php\">
+        echo "<form name=\"seleccionAsignaturasPreguntas\" method=\"POST\" action=\"CRUDpreguntas.php\">
               <select name='asignaturasProfesor'>" ;
-        for ( $i = 0 ; $i < count($arrayAsignaturas) ; i++ )
-        {
 
-            echo "<option>".$arrayAsignaturas[0]."</option>" ; 
+        for ( $i = 0 ; $i < count($arrayAsignaturas) ; $i++ )
+        {
+            if($arrayAsignaturas[$i]!='')
+            echo "<option>".$arrayAsignaturas[$i]."</option>" ; 
 
         }
         echo "</select>" ;
