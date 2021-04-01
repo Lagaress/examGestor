@@ -4,7 +4,6 @@ session_start();
     $apellsesion = $_SESSION['apellidos'];
     $fotosesion = $_SESSION['foto'];
     $dnisesion = $_SESSION['dni'];
-    echo $dnisesion;
     if($nombresesion ==null || $apellsesion==null){
         echo "no hay autorizacion";
         die();
@@ -29,7 +28,7 @@ session_start();
         <table style="text-align: center;">
             <tr> 
                 <th>
-                    <a href="" class="gestionpreguntas">Gestion de preguntas</a>
+                    <a href="gestionPreguntas.php" class="gestionPreguntas">Gestion de preguntas</a>
                 </th>
                 <th>            
                     <a href="gestionResultados.php" class="gestionresultados">Gestion de resultados</a>
