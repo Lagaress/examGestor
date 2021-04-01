@@ -33,35 +33,29 @@
     //     echo "La subida ha fallado";
     //     echo "<br>";
 
-    $conexionpersona =mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
+    $conexion=mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();
     }
 
 
-    mysqli_query($conexionpersona ,"INSERT INTO persona (ID,NOMBRE,APELLIDOS,TIPO,DNI,PASS,USER,FOTO ) VALUES
+    mysqli_query($conexion ,"INSERT INTO persona (ID,NOMBRE,APELLIDOS,TIPO,DNI,PASS,USER,FOTO ) VALUES
     (NULL,'$nombre' , '$apellidos' , 'ALUMNO', '$dni' , '$pass' , '$user' , '$archivo')");
 
-    
-
-    $conexionalumno = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
-    if (mysqli_connect_errno()) {
-        printf("Conexión fallida: %s\n", mysqli_connect_error());
-        die();
-    }
 
     $grado = $_POST['grado'];
     $curso = $_POST['curso'];
     $asignaturas = $_POST['matricula'];
-    $asig = "'".implode("','", $asignaturas)."'";
+    $asig = implode(',', $asignaturas);
    
+    echo $grado.$curso.$asig;
 
-    mysqli_query($conexionalumno ,"INSERT INTO alumno (DNI,CURSO,GRADO,MATRICULADO) VALUES
-    ('$dni' , '$curso' , '$grado' , '$asig')");
+    mysqli_query($conexion ,"INSERT INTO alumno (DNI,CURSO,GRADO,MATRICULADO) VALUES
+    ('$dni','$curso','$grado','$asig')");
 
-    mysqli_close($conexionalumno);
-    mysqli_close($conexionpersona);
+    mysqli_close($conexion);
 
     header("Location: usuarioaniadido.php");
+
 ?>
