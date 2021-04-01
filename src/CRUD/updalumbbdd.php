@@ -4,7 +4,7 @@
    
 
 
-    $update = mysqli_connect('localhost','root', '777303', 'universidad');
+    $update = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();

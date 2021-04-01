@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-03-2021 a las 00:13:16
+-- Tiempo de generación: 01-04-2021 a las 14:33:43
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -31,7 +31,7 @@ CREATE TABLE `alumno` (
   `DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `CURSO` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `GRADO` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `MATRICULADO` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL
+  `MATRICULADO` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`MATRICULADO`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -39,9 +39,9 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`DNI`, `CURSO`, `GRADO`, `MATRICULADO`) VALUES
-('11111111B', '2', 'Quimica', 'qwer,qwer,qwer,qwer,qwer,qwer,qwer,,,,'),
-('33432443i', '4', 'GII', 'POO,EDNL,AAED,DA,IS,,,,,,'),
-('77178334q', '6', 'GII', 'EDNL,POO,AAED,DA,ID,AG,AS,,,,');
+('11111111B', '2', 'Quimica', ''),
+('33432443i', '4', 'GII', ''),
+('77178334q', '6', 'GII', '');
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,8 @@ INSERT INTO `persona` (`ID`, `NOMBRE`, `APELLIDOS`, `TIPO`, `DNI`, `PASS`, `USER
 (31, 'jj', 'rodrigue', 'ALUMNO', '11111111B', 'qwer', 'jj', 'default.jpg'),
 (35, 'patricio', 'abelardo', 'PROFESOR', '00000000p', 'abe', 'patri', 'default.jpg'),
 (36, 'miau', 'gatito', 'ALUMNO', '33432443i', 'miau', 'miau', 'default.jpg'),
-(38, 'admin', 'admin', 'ADMIN', 'admin2', 'admin', 'admin2', 'default.jpg');
+(38, 'admin', 'admin', 'ADMIN', 'admin2', 'admin', 'admin2', 'default.jpg'),
+(39, 'profesor', 'profesor', 'PROFESOR', '33245544r', 'profe', 'profesor', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -144,16 +145,17 @@ INSERT INTO `preguntas` (`IDPREG`, `ENUNCIADO`, `RESP1`, `RESP2`, `RESP3`, `RESP
 --
 
 CREATE TABLE `profesor` (
-  `ASIGASOC` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL
+  `DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ASIGASOC` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`ASIGASOC`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`ASIGASOC`, `DNI`) VALUES
-('POO,,,,', '00000000p');
+INSERT INTO `profesor` (`DNI`, `ASIGASOC`) VALUES
+('00000000p', ''),
+('33245544r', '');
 
 -- --------------------------------------------------------
 
@@ -224,7 +226,7 @@ ALTER TABLE `temas`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`

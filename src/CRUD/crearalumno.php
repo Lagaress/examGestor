@@ -33,7 +33,7 @@
     //     echo "La subida ha fallado";
     //     echo "<br>";
 
-    $conexionpersona = mysqli_connect('localhost','root', '777303', 'universidad');
+    $conexionpersona =mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();
@@ -45,7 +45,7 @@
 
     
 
-    $conexionalumno = mysqli_connect('localhost','root', '777303', 'universidad');
+    $conexionalumno = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();
