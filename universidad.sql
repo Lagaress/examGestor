@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-04-2021 a las 14:33:43
+-- Tiempo de generación: 01-04-2021 a las 15:31:04
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -31,17 +31,8 @@ CREATE TABLE `alumno` (
   `DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `CURSO` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `GRADO` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `MATRICULADO` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`MATRICULADO`))
+  `MATRICULADO` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `alumno`
---
-
-INSERT INTO `alumno` (`DNI`, `CURSO`, `GRADO`, `MATRICULADO`) VALUES
-('11111111B', '2', 'Quimica', ''),
-('33432443i', '4', 'GII', ''),
-('77178334q', '6', 'GII', '');
 
 -- --------------------------------------------------------
 
@@ -111,7 +102,8 @@ INSERT INTO `persona` (`ID`, `NOMBRE`, `APELLIDOS`, `TIPO`, `DNI`, `PASS`, `USER
 (35, 'patricio', 'abelardo', 'PROFESOR', '00000000p', 'abe', 'patri', 'default.jpg'),
 (36, 'miau', 'gatito', 'ALUMNO', '33432443i', 'miau', 'miau', 'default.jpg'),
 (38, 'admin', 'admin', 'ADMIN', 'admin2', 'admin', 'admin2', 'default.jpg'),
-(39, 'profesor', 'profesor', 'PROFESOR', '33245544r', 'profe', 'profesor', 'default.jpg');
+(39, 'profesor', 'profesor', 'PROFESOR', '33245544r', 'profe', 'profesor', 'default.jpg'),
+(43, 'qwer', 'qwer', 'ALUMNO', 'qwer', 'qwer', 'qwer', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -226,7 +218,7 @@ ALTER TABLE `temas`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`

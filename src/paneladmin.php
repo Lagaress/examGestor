@@ -68,7 +68,7 @@ session_start();
                 <a href="CRUDAdmin.php" class="opprof">Crear Administrador</a>
 
             </th>
-        </tr>\
+        </tr>
     </table>
     <br><br> <br><br> <br><br>
     <table style="text-align: center; ">

@@ -54,7 +54,7 @@
     $grado = $_POST['grado'];
     $curso = $_POST['curso'];
     $asignaturas = $_POST['matricula'];
-    $asig = implode(",", $asignaturas);
+    $asig = "'".implode("','", $asignaturas)."'";
    
 
     mysqli_query($conexionalumno ,"INSERT INTO alumno (DNI,CURSO,GRADO,MATRICULADO) VALUES
