@@ -53,9 +53,9 @@
 
         // LE DAMOS LAS OPCIONES DE ACCIÓN SOBRE UNA DE SUS ASIGNATURAS
         echo "
-            <input type=\"radio\" name=\"crear\" value=\"1\">Crear
-            <input type=\"radio\" name=\"editar\" value=\"2\">Editar
-            <input type=\"radio\" name=\"borrar\" value=\"3\">Borrar
+            <input type=\"radio\" name=\"opcionCRUD\" value=\"crear\">Crear
+            <input type=\"radio\" name=\"opcionCRUD\" value=\"editar\">Editar
+            <input type=\"radio\" name=\"opcionCRUD\" value=\"borrar\">Borrar
             <input type=\"submit\" />
         "
 

@@ -11,10 +11,17 @@
 
 	// Obtenemos el DNI	del profesor que ha iniciado sesión 
 	session_start();
-	$dnisesion = $_SESSION['dni'];
+        $nombresesion = $_SESSION['nombre'];
+        $apellsesion = $_SESSION['apellidos'];
+        $fotosesion = $_SESSION['foto'];
+        $dnisesion = $_SESSION['dni'];
+        if($nombresesion ==null || $apellsesion==null){
+            echo "no hay autorizacion";
+            die();
+        }
 
 	// Nos conectamos a la BD
-	$conexionadmin = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
+	$conexionadmin = mysqli_connect('localhost','root','777303','universidad') ; 
 		 if (mysqli_connect_errno()) 
 		 {
              printf("Conexión fallida: %s\n", mysqli_connect_error());
@@ -31,7 +38,7 @@
 												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA > 8 ) as SOBRESALIENTES , 
 												ROUND(AVG(NOTA), 2) as MEDIA
 												FROM calificaciones c, asignaturas a , profesor p , examenes e
-												WHERE p.DNI = $dnisesion AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
+												WHERE p.DNI = '$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
 												GROUP BY ALUM_DNI"
 							);
 
