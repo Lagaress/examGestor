@@ -69,7 +69,7 @@ CREATE TABLE `examenes` (
   `CODEX` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `FECHA` date NOT NULL,
   `PASS` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PREG` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NUM_PREG` int(11) NOT NULL,
   `TEM` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ASIG` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
