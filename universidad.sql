@@ -113,12 +113,10 @@ INSERT INTO `persona` (`ID`, `NOMBRE`, `APELLIDOS`, `TIPO`, `DNI`, `PASS`, `USER
 
 CREATE TABLE `preguntas` (
   `IDPREG` int(11) NOT NULL,
+  `TEMAID` int(11) NOT NULL,
   `ENUNCIADO` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESP1` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESP2` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESP3` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESP4` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESP` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `RESPONSES` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `CORRECTA` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

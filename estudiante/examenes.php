@@ -1,13 +1,14 @@
 <?php
 session_start();
 
+include('config.php');
 $dni = $_SESSION['dni'];
 
 //Mostrar una tabla con los examenes disponibles para ser realizados y enlaces a ellos.
 
 
     $db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ; 
-    $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA');
+    $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA');
     $QueryAsigs= mysqli_query($db,"SELECT ASIG FROM alumno WHERE DNI=$dni" );
     $QueryDate= mysqli_query($db," SELECT CURDATE()" );
 
@@ -52,7 +53,7 @@ $dni = $_SESSION['dni'];
                                 .$row['FECHA'].
                             '</th>'; 
                     if($row['FECHA'] == $Date){
-                        echo '<th>'.'Aquivaellinkcuandolotengamosclaro'.'</th>'; //Falta ver como poner los links
+                        echo '<th>'."href='link?".$row['CODEX'].'</th>'; //Falta ver como poner los links
                     }else{
                         echo '<th>Link disponible el dia del examen</th>';
                     }
