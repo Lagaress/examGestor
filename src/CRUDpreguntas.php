@@ -27,7 +27,41 @@ if ($opcionDelCRUD == "crear")
 {
 
     echo "<h1>¿Qué pregunta quieres crear?<h1>" ;
+    echo 
+    "
+    <form method=\"POST\" enctype=\"multipart/form-data\" action=\"crearPreguntaEnLaBD.php\">
+        <table style=\"text-align: center;\">
+            <tr>
+            <th>
+                <br>Datos de la pregunta: <br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"TEMA\" placeholder=\"Tema Asociado\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"ENUNCIADO\" placeholder=\"Enunciado\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"RESP1\" placeholder=\"Respuesta1\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"RESP2\" placeholder=\"Respuesta2\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"RESP3\" placeholder=\"Respuesta3\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"RESP4\" placeholder=\"Respuesta4\"  required><br>
+                <input style=\"width: 500px;\" type=\"text\" name=\"RESPCORRECTA\" placeholder=\"Respuesta Correcta\"  ><br>
+                <input type=\"submit\" value=\"Crear Pregunta\" />
+            <th>
+            </tr>
+        </table>    
+    </form>
+    " ;
 
+    echo "<h2>Los temas de tus asignaturas son:</h2>" ;
+
+    $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
+    $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
+    $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
+
+    // # Separamos el vector
+    $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
+    for ( $j = 0 ; $j < count($consulta_obtencion_temas_vector_separado) ; $j++ )
+    {
+
+        echo $consulta_obtencion_temas_vector_separado[$j].' ' ;
+
+    }
 
 }
 
@@ -36,13 +70,81 @@ else if ($opcionDelCRUD == "editar")
 
     echo "<h1>¿Qué pregunta quieres editar?<h1>" ;
 
+    // MOSTRAMOS LAS PREGUNTAS 
+    // # Hacemos una consulta obteniendo el ID de los temas de cada asignatura 
+    $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
+    $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
+    $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
+
+    // # Separamos el vector
+    $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
+    for ( $j = 0 ; $j < count($consulta_obtencion_temas_vector_separado) ; $j++ )
+    {
+
+        // # Ahora debemos obtener los ID de las preguntas de cada tema para mostrarlas
+        $obtencion_preguntas_de_un_tema = "SELECT BATPREGUNTAS FROM temas WHERE ID = '$consulta_obtencion_temas_vector_separado[$j]'" ;
+        $consulta_obtencion_preguntas = mysqli_query($conexionadmin , $obtencion_preguntas_de_un_tema) or die ("problemas con la consulta de obtención de preguntas") ;
+        $consulta_obtencion_preguntas_vector_unido = mysqli_fetch_array($consulta_obtencion_preguntas) ;
+
+        // # Separamos el vector
+        $consulta_obtencion_preguntas_vector_separado = explode(',' , $consulta_obtencion_preguntas_vector_unido[0]) ;
+
+        for ($k = 0 ; $k < count($consulta_obtencion_preguntas_vector_separado) ; $k++ ) // Ahora mostramos todas las preguntas ; 
+        {
+            
+            $obtencion_preguntas_teniendo_el_id = "SELECT * FROM preguntas WHERE IDPREG = '$consulta_obtencion_preguntas_vector_separado[$k]'" ; 
+            $consulta_mostrar_preguntas = mysqli_query($conexionadmin , $obtencion_preguntas_teniendo_el_id) ;
+            $numcol = mysqli_num_rows($consulta_mostrar_preguntas) ;
+
+            // Mostramos todas las preguntas
+            for ( $l = 0 ; $l < $numcol ; $l++ )
+            {
+
+                $fila = mysqli_fetch_array($consulta_mostrar_preguntas);
+                    
+                if($i == 0) // Mostramos los encabezados
+                {
+                    echo " <table class=\"encabezadoTablaPreguntas\" > 
+                    <tr class = \"titulosMostrarPreguntas\">
+                        <th>IDPREGUNTA</th>
+                        <th>ENUNCIADO</th>
+                        <th>RESPUESTA1</th>
+                        <th>RESPUESTA2</th>
+                        <th>RESPUESTA3</th>
+                        <th>RESPUESTA4</th>
+                        <th>RESPUESTACORRECTA</th>
+                    </tr>";
+                }
+
+                echo  # Mostramos la tabla
+                    "<tr class=\"filasVerCalificaciones\" >
+                    <td> ".$fila['IDPREG']." </td>
+                    <td> ".$fila['ENUNCIADO']." </td>
+                    <td> ".$fila['RESP1']." </td>
+                    <td> ".$fila['RESP2']." </td>
+                    <td> ".$fila['RESP3']." </td>
+                    <td> ".$fila['RESP4']." </td>
+                    <td> ".$fila['RESP']." </td>
+                    ";
+                echo "<tr>";
+
+            }
+
+        }
+
+    }
+
+    // Enviamos el dato a borrar por POST 
+    echo "
+    <form name=\"seleccionarPreguntaParaEditar\" enctype=\"multipart/form-data\" method=\"POST\" action=\"updatePregunta.php\">
+    <td> <input type=\"text\" name=\"preguntaAEditar\" placeholder=\"Editar\"  >
+    <input type=\"submit\" value=\"Editar\" placeholder=\"Editar\"  >
+    </form> " ;
 
 }
 
 else 
 {
-
-    $vector_almacenamiento_preguntas = [] ; // Creamos un array vacío para almacenar las preguntas de un futuro
 
     echo "<h1>¿Qué pregunta quieres borrar?<h1>" ;
 
@@ -66,9 +168,6 @@ else
 
             for ($k = 0 ; $k < count($consulta_obtencion_preguntas_vector_separado) ; $k++ ) // Ahora mostramos todas las preguntas ; 
             {
-
-                // Añadimos las preguntas a un vector para mostrarlas posteriormente fuera del ambito del for
-                $vector_almacenamiento_preguntas[$k] = $consulta_obtencion_preguntas_vector_separado[$k] ;
                 
                 $obtencion_preguntas_teniendo_el_id = "SELECT * FROM preguntas WHERE IDPREG = '$consulta_obtencion_preguntas_vector_separado[$k]'" ; 
                 $consulta_mostrar_preguntas = mysqli_query($conexionadmin , $obtencion_preguntas_teniendo_el_id) ;
@@ -113,8 +212,14 @@ else
         }
  
     
+    // Enviamos el dato a borrar por POST 
+    echo "
+    <form name=\"seleccionarPreguntaParaEliminar\" enctype=\"multipart/form-data\" method=\"POST\" action=\"delPregunta.php\">
+    <td> <input type=\"text\" name=\"preguntaAEliminar\" placeholder=\"Eliminar\"  >
+    <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\"  >
+    </form> " ;
 
-    echo "<form name=\"seleccionarPreguntaParaEliminar\" method=\"POST\" action=\"delPregunta.php\">
+    /*echo "<form name=\"seleccionarPreguntaParaEliminar\" method=\"POST\" action=\"delPregunta.php\">
     <select name='preguntaAEliminar'>" ;
     for ($m = 0 ; $m < count($vector_almacenamiento_preguntas) ; $m++ )
     {
@@ -125,7 +230,7 @@ else
     echo "
     </select>
     <input type=\"submit\" />
-    " ;
+    " ;*/
     
 
     /*
