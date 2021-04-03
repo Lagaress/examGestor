@@ -88,7 +88,7 @@ CREATE TABLE `persona` (
   `DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `PASS` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `USER` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-git   `FOTO` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.jpg'
+  `FOTO` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

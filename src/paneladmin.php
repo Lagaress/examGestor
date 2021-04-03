@@ -17,7 +17,7 @@ session_start();
 <html>
 <head>
     <meta content="charset=utf-8" />
-    <title>PanelAdmin</title>
+    <title>Panel Admin</title>
     <link href="../templates/paneladmin.css" rel="stylesheet" type="text/css">
 
 </head>

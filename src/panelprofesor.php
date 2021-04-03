@@ -17,7 +17,7 @@ session_start();
 <html>
 <head>
     <meta content="charset=utf-8" />
-    <title>PanelProfesor</title>
+    <title>Panel Profesor</title>
     <link href="../templates/panelprofesor.css" rel="stylesheet" type="text/css">
 
 </head>
