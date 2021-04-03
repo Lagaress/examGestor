@@ -40,7 +40,7 @@ if (isset($_GET['Identificador'])){
 
         $QueryPregs = mysqli_query($db,"SELECT ENUNCIADO,RESPONSES FROM preguntas WHERE $Temas ORDER BY RAND() LIMIT $NumPreg");
         
-        echo '<form method="POST>';
+        echo '<form method=post action="hacerexamen.php">';
         while($row = mysqli_fetch_assoc($QueryPregs)){
             echo $row.['ENUNCIADO']; 
             $ArrayResp = explode(',' , $QueryPregs['RESPONSES'][0][0]);   
@@ -48,7 +48,7 @@ if (isset($_GET['Identificador'])){
                 echo $ArrayResp[$i]; //TODO formatear esto para que sea una checkbox con solo uno seleccionable. Y se submitee el value de la respuesta
             }
         }
-        //TODO Boton de submit
+        echo '<button class="boton" id="responses" type="submit" name="submited">Iniciar Sesión</button>';
         echo '</form>';
     }
 }

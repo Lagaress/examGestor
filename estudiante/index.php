@@ -4,6 +4,7 @@ session_start();
 
 if(isset($_POST['examenes'])){
     header('location: /estudiante/examenes.php');
+    exit;
 }
 
 /*if(isset($_POST['perfil'])){
@@ -12,11 +13,13 @@ if(isset($_POST['examenes'])){
 
 if(isset($_POST['calificaciones'])){
     header('location: /estudiante/calificaciones.php');
+    exit;
 }
 
 //ADDON calendario
 ?>
 
-
-<button class="boton" id="examenes" type="submit" name="submited">Realizar Examenes</button>
-<button class="boton" id="calif" type="submit" name="submited">Ver Calificaciones</button>
+<form action="index.php" method=post>
+<button class="boton" id="examenes" type="submit" name="examenes">Realizar Examenes</button>
+<button class="boton" id="calificaciones" type="submit" name="calificaciones">Ver Calificaciones</button>
+</form>
