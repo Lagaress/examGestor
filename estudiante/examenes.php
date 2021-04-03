@@ -41,7 +41,7 @@ $dni = $_SESSION['dni'];
     
             for ( $i = 0 ; $i < count($Asigs) ; $i++ ){
 
-                if ($Asigs == $row['ASIG']){
+                if ($Asigs[$i] == $row['ASIG']){
                     echo '<tr>
                             <th>'
                                 .$row['ASIG'].
@@ -53,7 +53,7 @@ $dni = $_SESSION['dni'];
                                 .$row['FECHA'].
                             '</th>'; 
                     if($row['FECHA'] == $Date){
-                        echo '<th>'."href='link?".$row['CODEX'].'</th>'; //Falta ver como poner los links
+                        echo '<th>'.'href"./="./calificaciones.php?Identificador='.$row['CODEX'].'"</th>'; //Falta ver como poner los link
                     }else{
                         echo '<th>Link disponible el dia del examen</th>';
                     }
