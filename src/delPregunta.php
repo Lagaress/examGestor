@@ -20,6 +20,12 @@
         die();
     }
 
+    // Ahora la eliminamos de la BATERIADEPREGUNTAS
+    $consulta_obtencion_tema = "SELECT TEMAID from preguntas WHERE IDPREG='$pregunta'" ;
+    // Lanzamos la consulta para obtener el TemaID
+    $tema = mysqli_query($conexionadmin , $consulta_obtencion_tema) ;
+    $tema_vector = mysqli_fetch_array($tema) ;
+
     $consulta_eliminacion = ("DELETE from preguntas WHERE IDPREG='$pregunta'") ;
     mysqli_query($conexionadmin , $consulta_eliminacion) ;
     $consulta_comprobante = ("SELECT from preguntas WHERE IDPREG='$pregunta'") ;
@@ -37,73 +43,33 @@
 
     }
 
-    // Actualizamos la batería de preguntas
-
-    $obtencion_asignaturas_de_un_profesor = "SELECT ASIGASOC from profesor where DNI='$dnisesion'" ;
-    $consulta_obtencion_asignaturas = mysqli_query($conexionadmin , $obtencion_asignaturas_de_un_profesor) or die ("Problemas con la consulta") ;
-    $consulta_obtencion_asignaturas_vector_unido = mysqli_fetch_array($consulta_obtencion_asignaturas);
-    
-    // # Ahora separamos el vector 
-    $consulta_obtencion_asignaturas_vector_separado = explode(',' , $consulta_obtencion_asignaturas_vector_unido[0]) ;
-    // Ahora debemos obtener los ID de los temas asociados a cada asignatura  
-    for ($i = 0 ; $i < count($consulta_obtencion_asignaturas_vector_separado); $i++) // Recorremos todas las asignaturas 
+    // Consulta obtener bateria de preguntas
+    $consulta_otener_vector_preguntas = "SELECT BATPREGUNTAS from temas WHERE ID='$tema_vector[0]'" ;
+    $vector_preguntas = mysqli_fetch_array(mysqli_query($conexionadmin , $consulta_otener_vector_preguntas)) ;
+    $vector_preguntas_separado = explode("," , $vector_preguntas[0]) ;
+    $string_vacio = " " ;
+    $vector_vacio = array() ;
+    for ($i = 0 ; $i < count($vector_preguntas_separado) ; $i++)
     {
 
-        // # Hacemos una consulta obteniendo el ID de los temas de cada asignatura 
-        $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$consulta_obtencion_asignaturas_vector_separado[$i]'" ;
-        $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
-        $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
-
-        // # Separamos el vector
-        $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
-        for ( $j = 0 ; $j < count($consulta_obtencion_temas_vector_separado) ; $j++ )
+        if ($vector_preguntas_separado[$i] != $pregunta)
         {
 
-            $pregunta_econtrada = False ;
-
-            // # Ahora debemos obtener los ID de las preguntas de cada tema para mostrarlas
-            $obtencion_preguntas_de_un_tema = "SELECT BATPREGUNTAS FROM temas WHERE ID = '$consulta_obtencion_temas_vector_separado[$j]'" ;
-            $consulta_obtencion_preguntas = mysqli_query($conexionadmin , $obtencion_preguntas_de_un_tema) or die ("problemas con la consulta de obtención de preguntas") ;
-            $consulta_obtencion_preguntas_vector_unido = mysqli_fetch_array($consulta_obtencion_preguntas) ;
-
-            // # Separamos el vector
-            $consulta_obtencion_preguntas_vector_separado = explode(',' , $consulta_obtencion_preguntas_vector_unido[0]) ;
-
-            $copia_vector_batpreguntas = [] ; // Creamos un vector auxiliar vacio
-
-            for ($k = 0 ; $k < count($consulta_obtencion_preguntas_vector_separado) ; $k++ ) // Ahora mostramos todas las preguntas ; 
-            {
-
-
-                if ($consulta_obtencion_preguntas_vector_separado[$k] == $pregunta) // Si la pregunta está en la batería del tema
-                {
-
-                    $pregunta_econtrada = True ; 
-
-                }
-
-                else 
-                {
-
-                    // Copiamos todas las preguntas que no sean la que acabamos de eliminar
-                    $copia_vector_batpreguntas[$k] = $consulta_obtencion_preguntas_vector_separado[$k] ;
-
-                }
-
-            }
-
-            if ($pregunta_econtrada) // Si hemos encontrado la pregunta, modificamos la batería de preguntas de este tema
-            {
-
-                $consulta_eliminar_pregunta_de_la_bateria = mysqli_query($conexionadmin , "UPDATE temas SET BATPREGUNTAS = '$copia_vector_batpreguntas' WHERE ID = '$consulta_obtencion_temas_vector_separado[$k]'");
-
-            }
+            
+            array_push($vector_vacio , $vector_preguntas_separado[$i]) ;
+            $string_vacio = $vector_vacio.$vector_preguntas_separado[$i] ;
 
         }
- 
-    }
 
-    header("Location: CRUDpreguntas.php") ;
+    }
+    $vector_update = implode("," , $vector_vacio) ;
+    $consulta_modificar_tema = "UPDATE temas SET BATPREGUNTAS='$string' WHERE ID='$tema_vector[0]'" ; // Creamos la consulta
+    mysqli_query($conexionAdicionPregunta, $consulta_modificar_tema) ; // Lanzamos la consulta
+
+    
+
+    
+    //header("Location: CRUDpreguntas.php") ;
     
 
 ?>

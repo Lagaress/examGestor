@@ -4,8 +4,8 @@
 $incorrectlogin = '';
 
 function autentificado($user, $pass){
-    $conexion = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
-    if (mysqli_connect_errno()) {
+    $conexion = mysqli_connect('localhost','root', '777303', 'universidad') ; 
+    if (mysqli_connect_errno()) { 
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         die();
     }
@@ -24,7 +24,7 @@ function autentificado($user, $pass){
 }
 
 function givetipe($user, $pass){
-    $conexion = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
+    $conexion = mysqli_connect('localhost','root', '777303', 'universidad') ; 
     if (mysqli_connect_errno()) {
         printf("Conexión fallida: %s\n", mysqli_connect_error());
         exit();

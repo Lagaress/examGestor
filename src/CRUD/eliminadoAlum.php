@@ -3,7 +3,7 @@
 
     if($_POST['elec'] == 'si'){
 
-        $conexionpersona = mysqli_connect('localhost','teresa','ranateresa','universidad') ; 
+        $conexionpersona = mysqli_connect('localhost','root','777303','universidad') ; 
         if (mysqli_connect_errno()) {
             printf("Conexión fallida: %s\n", mysqli_connect_error());
             die();

@@ -28,7 +28,7 @@ session_start();
         <table style="text-align: center;">
             <tr> 
                 <th>
-                    <a href="gestionPreguntas.php" class="gestionPreguntas">Gestion de preguntas</a>
+                    <a href="gestionPreguntas.php" class="gestionpreguntas">Gestion de preguntas</a>
                 </th>
                 <th>            
                     <a href="gestionResultados.php" class="gestionresultados">Gestion de resultados</a>
