@@ -15,7 +15,7 @@ if (isset($_GET['Identificador'])){
 
     if(!(bool)$result){
 
-        #mysqli_query($db ,"INSERT INTO calificaciones (ALUM_DNI,COD_EX,NOTA ) VALUES ('$dni' , '$id' , '$nota')");
+        mysqli_query($db ,"INSERT INTO calificaciones (ALUM_DNI,COD_EX,NOTA ) VALUES ('$dni' , '$id' , '$nota')");
         $QueryNumPreg= mysqli_query($db,"SELECT NUM_PREG FROM examenes WHERE CODEX='$id'" );
         $NumPreg = mysqli_fetch_array($QueryNumPreg)[0];
 
@@ -32,7 +32,7 @@ if (isset($_GET['Identificador'])){
 
         $QueryPregs = mysqli_query($db,"SELECT IDPREG,ENUNCIADO,RESPONSES FROM preguntas WHERE $TemasID ORDER BY RAND() LIMIT $NumPreg");
         
-        echo '<form method=post action="hacerexamen.php">';
+        echo "<form method=post action='hacerexamen.php?Identificador=".$id."'>";
         $j=0;
         while($row = mysqli_fetch_assoc($QueryPregs))
         {   
@@ -52,21 +52,28 @@ if (isset($_GET['Identificador'])){
     }
 }
 
-if(isset($_POST['Submit'])){
+if(isset($_POST['submited'])){
+    echo 'uwu';
     $response = $_POST['response'];
     
     $QueryNumPreg= mysqli_query($db,"SELECT NUM_PREG FROM examenes WHERE CODEX='$id'" );
+    echo "SELECT NUM_PREG FROM examenes WHERE CODEX='$id'<br>";
     $NumPreg = mysqli_fetch_array($QueryNumPreg)[0];
+    echo "NumPReg ".$NumPreg."<br>";
 
     for ( $i = 0 ; $i < count($response) ; $i++ ){
         mysqli_query($db ,"UPDATE respuestas  SET RESPALUMN='$response[$i]' WHERE ID_PREG='$preg[$i]' AND ALUM_DNI='$dni' AND COD_EX='$id' ");
+        echo "UPDATE respuestas  SET RESPALUMN='$response[$i]' WHERE ID_PREG='$preg[$i]' AND ALUM_DNI='$dni' AND COD_EX='$id' <br>";
         $result = mysqli_query($db,"SELECT * FROM preguntas WHERE IDPREG='$preg[$i]' AND CORRECTA='$response[$i]' " );
+        echo "SELECT * FROM preguntas WHERE IDPREG='$preg[$i]' AND CORRECTA='$response[$i]'<br>";
         if( mysqli_num_rows($result)){
             $Nota += 10/$NumPreg;
+            echo $Nota;
         }
     }
 
     mysqli_query($db ,"UPDATE calificaciones SET NOTA=$nota WHERE ALUM_DNI='$dni' AND COD_EX='$id'");
+    echo "UPDATE calificaciones SET NOTA=$nota WHERE ALUM_DNI='$dni' AND COD_EX='$id'";
 
     header('location: /estudiante/examenes.php');
     exit;

@@ -1,3 +1,9 @@
-* Calculo de notas
-* Test con datos
-* Añadir un join a las calificaciones para ver de que asignatura es la calificacion
+* Añadir un join pa sacar nombres asig en calificaciones
+* Reestructurar la app 
+* Despleglabe seleccion temas en creacion de preguntas
+* Generación de tablas para las visualizaciones del profesor
+* Cambiar placeholders por desplegables en profesor
+* Fix IDOR
+* Añadir un CSS en condiciones
+* Mostrar foto e id del alumno en una esquina en los distintos endpoints de estudiantes
+* Autoincremento preguntas
