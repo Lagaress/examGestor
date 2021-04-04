@@ -30,8 +30,15 @@
         }
 
     }
+
+    // Añadimos la pregunta a la tabla de preguntas
     $consultaAdicion = "INSERT INTO preguntas (IDPREG,ENUNCIADO,RESP1,RESP2,RESP3,RESP4,RESP) VALUES ('$aleatorio','$enunciado','$resp1','$resp2','$resp3','$resp4','$respCorrecta')" ;
     mysqli_query($conexionAdicionPregunta , $consultaAdicion) ;
+
+    // Ahora hay que añadir la pregunta al tema en cuestión
+        // Creamos una consulta que nos de todos los temas
+        // Recorremos los temas buscando en el BatPregunta si no existe el ID => En ese caso la añadisos
+        // Cambiamos el vector por el vector anterior + el nuevo ID de pregunta
 
     echo "La pregunta ha sido añadida correctamente" ;
 ?>

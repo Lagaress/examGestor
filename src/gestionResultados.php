@@ -29,7 +29,7 @@
 		 }
 
 	
-	// Consulta SQL	 
+	// Consulta SQL	PARA OBTENER EL ALUMNO Y SU CALIFICACIÓN
 	$consulta = mysqli_query($conexionadmin, "SELECT ALUM_DNI as DNI , 
 												NOTA as NOTA , 
 												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA < 5 ) as SUSPENSOS ,
@@ -41,6 +41,33 @@
 												WHERE p.DNI = '$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
 												GROUP BY ALUM_DNI"
 							);
+
+	// CONSULTA SQL PARA OBTENER LOS SUSPENSOS
+	$consulta_obtencion_suspensos = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA < 5" ) ;
+
+	$mostrar_suspensos = mysqli_fetch_array($consulta_obtencion_aprobados) ;
+							
+	// CONSULTA SQL PARA OBTENER LOS APROBADOS
+	$consulta_obtencion_aprobados = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA > 5" ) ;
+
+	$mostrar_aprobados = mysqli_fetch_array($consulta_obtencion_aprobados) ;
+
+	// CONSULTA SQL PARA OBTENER LOS NOTABLES
+	$consulta_obtencion_notables = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA BETWEEN 7 AND 8" ) ;
+
+	$mostrar_notables = mysqli_fetch_array($consulta_obtencion_notables) ;
+	
+	// CONSULTA SQL PARA OBTENER LOS SOBRESALIENTES
+	$consulta_obtencion_sobresalientes = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA > 8" ) ;
+
+	$mostrar_sobresalientes = mysqli_fetch_array($consulta_obtencion_sobresalientes) ;
+
+	// CONSULTA SQL PARA OBTENER LOS SOBRESALIENTES
+	$consulta_obtencion_media = mysqli_query($conexionadmin , "SELECT AVG(NOTA) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX" ) ;
+
+	$mostrar_media = mysqli_fetch_array($consulta_obtencion_media) ;
+
+
 
 	$numcol = mysqli_num_rows($consulta) ;
 
@@ -65,11 +92,6 @@
 			<tr class = \"titulosVerCalificaciones\">
 				<th>Alumno</th>
 				<th>Calificación</th>
-				<th>Suspensos</th>
-				<th>Aprobados</th>
-				<th>Notables</th>
-				<th>Sobresalientes</th>
-				<th>Media de la clase</th>
 			</tr>";
 			}
 
@@ -77,17 +99,28 @@
 				"<tr class=\"filasVerCalificaciones\" >
 				<td> ".$fila['DNI']." </td>
 				<td> ".$fila['NOTA']." </td>
-				<td> ".$fila['SUSPENSOS']." </td>
-				<td> ".$fila['APROBADOS']." </td>
-				<td> ".$fila['NOTABLES']." </td>
-				<td> ".sha1($fila['SOBRESALIENTES'])." </td>
-				<td> ".$fila['MEDIA']." </td>
 				";
 			echo "<tr>";
 
 		}		
 			echo "</table></div>";
 	}
+
+	echo 
+	"
+		<table>
+			<tr></tr>
+			<td>El número de suspensos es: $mostrar_aprobados[0]\n</td>
+			<tr></tr>
+			<td>El número de aprobados es: $mostrar_aprobados[0]</td>
+			<tr></tr>
+			<td>El número de notables es: $mostrar_notables[0]</td>
+			<tr></tr>
+			<td>El número de sobresalientes es: $mostrar_sobresalientes[0]</td>
+			<tr></tr>
+			<td>La media de la clase es: $mostrar_media[0]</td>
+		</table>
+	" ;
 
 	mysqli_close($conexionadmin); // Cerramos la conexión con la BD
 
