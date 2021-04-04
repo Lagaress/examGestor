@@ -34,7 +34,6 @@ $dni = $_SESSION['dni'];
     $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE) ; 
 
     $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA'); 
-    echo 'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA';
     $QueryAsigs= mysqli_query($db,"SELECT MATRICULADO FROM alumno WHERE DNI='$dni'" );
     $QueryDate= mysqli_query($db," SELECT CURDATE()" ); 
 
@@ -42,8 +41,7 @@ $dni = $_SESSION['dni'];
     $ResulAsigs = mysqli_fetch_all($QueryAsigs); 
     $Asigs = explode(',' , $ResulAsigs[0][0]); 
     
-    $Date = mysqli_fetch_row($QueryDate); 
-
+    $Date = mysqli_fetch_array($QueryDate)[0]; 
 
     echo '<table>
     <tr>
@@ -77,9 +75,10 @@ $dni = $_SESSION['dni'];
                             '</th>
                             <th>'
                                 .$row['FECHA'].
-                            '</th>'; 
+                            '</th>';
+                            
                     if($row['FECHA'] == $Date){
-                        echo '<th>'.'href"./="./calificaciones.php?Identificador='.$row['CODEX'].'"</th>'; 
+                        echo '<th>'.'<a href="./hacerexamen.php?Identificador='.$row['CODEX'].'">Link</a></th>'; 
                     }else{
                         echo '<th>Link disponible el dia del examen</th>';
                     }
