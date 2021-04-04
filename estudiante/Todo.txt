@@ -5,3 +5,6 @@
 * Fix IDOR
 * Añadir un CSS en condiciones
 * Mostrar foto e id del alumno en una esquina en los distintos endpoints de estudiantes
+* SQL Injection en login.php (user y pass), updalumbbdd (ID) , modprofesor (dni) , hacerexamen (Identificador)
+* Reflected XSS en hacer examen y modprofesor
+* Stored XSS en updaalum

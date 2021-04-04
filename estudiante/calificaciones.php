@@ -57,7 +57,7 @@ echo '<table>
         $QUERYASIG= mysqli_query($db,"SELECT ASIG FROM examenes WHERE CODEX='$codigo' LIMIT 1" ); 
  
         $AsigName = mysqli_fetch_array($QUERYASIG)[0];
-        echo $AsigName;
+
         echo '<tr>
                 <th>'
                     .$AsigName.
