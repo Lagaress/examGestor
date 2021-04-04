@@ -61,7 +61,7 @@ if ( isset($_POST['submit'])) {
     if( autentificado($user, $pass)==1){
         $tipo = givetipe($user, $pass);
         switch($tipo){
-            case 'ALUMNO': header("Location:panelalumno.php");
+            case 'ALUMNO': header("Location:/estudiante/index.php");
                 break;
             case 'PROFESOR': header("Location:panelprofesor.php");
                 break;

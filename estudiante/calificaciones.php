@@ -53,9 +53,14 @@ echo '<table>
 
     while($row = mysqli_fetch_assoc($result)){
 
+        $codigo = $row['CODIGO'];
+        $QUERYASIG= mysqli_query($db,"SELECT ASIG FROM examenes WHERE CODEX='$codigo' LIMIT 1" ); 
+ 
+        $AsigName = mysqli_fetch_array($QUERYASIG)[0];
+
         echo '<tr>
                 <th>'
-                    .$row['CODIGO']. //TO DO fetch de nombre de asignatura
+                    .$AsigName.
                 '</th>
                 <th>'
                     .$row['COD_EX'].                            

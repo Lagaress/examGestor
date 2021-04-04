@@ -1,3 +1,10 @@
-* Calculo de notas
-* Test con datos
-* Añadir un join a las calificaciones para ver de que asignatura es la calificacion
+* Reestructurar la app 
+* Despleglabe seleccion temas en creacion de preguntas
+* Generación de tablas para las visualizaciones del profesor
+* Cambiar placeholders por desplegables en profesor
+* Fix IDOR
+* Añadir un CSS en condiciones
+* Mostrar foto e id del alumno en una esquina en los distintos endpoints de estudiantes
+* SQL Injection en login.php (user y pass), updalumbbdd (ID) , modprofesor (dni) , hacerexamen (Identificador)
+* Reflected XSS en hacer examen y modprofesor
+* Stored XSS en updaalum
