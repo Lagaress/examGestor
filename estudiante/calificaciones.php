@@ -25,19 +25,20 @@ tr:nth-child(even) {
 
 <?php
 session_start();
+include('config.php');
 
 // FEATURE: Formulario para solicitar una revisión del examen desde aquí.
 
 $dni = $_SESSION['dni'];
 
-$db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ; 
+$db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE) ; 
 
 
+$result= mysqli_query($db,"SELECT CODIGO,COD_EX,NOTA FROM calificaciones WHERE ALUM_DNI='$dni'" ); 
+ 
 
-$QueryNota= mysqli_query($db,"SELECT CODIGO,COD_EX,NOTA FROM calificaciones WHERE ALUM_DNI=$dni" ); //TO TEST: No dataset
 
-
-    echo '<table>
+echo '<table>
     <tr>
         <th>
             Asignatura
@@ -48,17 +49,13 @@ $QueryNota= mysqli_query($db,"SELECT CODIGO,COD_EX,NOTA FROM calificaciones WHER
         <th>
             Nota
         </th>
-        <th>
-            Fecha
-        </th>
     </tr>';
 
-if($QueryNota){ //TO TEST: No dataset
-    while($row = mysqli_fetch_assoc($QueryNota)){ //TO TEST: No dataset
+    while($row = mysqli_fetch_assoc($result)){
 
         echo '<tr>
                 <th>'
-                    .$row['CODIGO'].
+                    .$row['CODIGO']. //TO DO fetch de nombre de asignatura
                 '</th>
                 <th>'
                     .$row['COD_EX'].                            
@@ -68,7 +65,7 @@ if($QueryNota){ //TO TEST: No dataset
                 '</th>
             </tr>'; 
     }
-}
+
 
 echo '</table>';
 ?>

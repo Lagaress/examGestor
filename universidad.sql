@@ -60,7 +60,7 @@ CREATE TABLE `calificaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT INTO `calificaciones` (`CODIGO`, `ALUM_DNI`,`COD_EX`.`NOTA`) VALUES
+INSERT INTO `calificaciones` (`CODIGO`, `ALUM_DNI`,`COD_EX`,`NOTA`) VALUES
 (1 , '33432443i', '2' , '10'),
 (2 , '33432443i', '1' , '8');
 -- --------------------------------------------------------
@@ -78,9 +78,9 @@ CREATE TABLE `examenes` (
   `ASIG` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `examenes` (`CODEX`, `FECHA`,`PASS`.`NUM_PREG`,`TEM`,`ASIG`) VALUES
-(1 , '04-03-2021', 'a' , '2', '2' , 'POO'),
-(2 , '04-03-2021', 'b' , '1', '2', 'EDNL');
+INSERT INTO `examenes` (`CODEX`, `FECHA`,`PASS`,`NUM_PREG`,`TEM`,`ASIG`) VALUES
+(1 , '2021-05-05', 'a' , '2', '2' , 'POO'),
+(2 , '2021-06-06', 'b' , '1', '2', 'EDNL');
 
 -- --------------------------------------------------------
 
@@ -131,10 +131,10 @@ CREATE TABLE `preguntas` (
 -- Volcado de datos para la tabla `preguntas`
 --
 
-INSERT INTO `preguntas` (`IDPREG`, `ENUNCIADO`, `RESP1`, `RESP2`, `RESP3`, `RESP4`, `RESP`) VALUES
-(1, '¿En que año se fundo...?', '2000', '2001', '2011', '2020', 'resp1'),
-(7, 'Esta pagina esta hecha en PHP y HTML  ', 'Verdadero   ', 'Flaso   ', '   ', '   ', 'resp1   '),
-(8, 'como mostramos por pantalla un texto en php?', 'echo', 'balabla', 'qwer', '', 'resp1');
+-- INSERT INTO `preguntas` (`IDPREG`, `ENUNCIADO`, `RESP1`, `RESP2`, `RESP3`, `RESP4`, `RESP`) VALUES
+-- (1, '¿En que año se fundo...?', '2000', '2001', '2011', '2020', 'resp1'),
+-- (7, 'Esta pagina esta hecha en PHP y HTML  ', 'Verdadero   ', 'Flaso   ', '   ', '   ', 'resp1   '),
+-- (8, 'como mostramos por pantalla un texto en php?', 'echo', 'balabla', 'qwer', '', 'resp1');
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ CREATE TABLE `respuestas` (
   `ID_PREG` int(11) NOT NULL,
   `ALUM_DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `COD_EX` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `RESPALUMN` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
+  `RESPALUMN` varchar(250) COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- --------------------------------------------------------
 
@@ -181,6 +181,7 @@ CREATE TABLE `temas` (
 --
 -- Indices de la tabla `alumno`
 --
+
 ALTER TABLE `alumno`
   ADD UNIQUE KEY `DNI` (`DNI`);
 
@@ -188,15 +189,13 @@ ALTER TABLE `alumno`
 -- Indices de la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
-  ADD UNIQUE KEY `ALUM_DNI` (`ALUM_DNI`),
   ADD UNIQUE KEY `CODIGO` (`CODIGO`);
 
 --
 -- Indices de la tabla `examenes`
 --
 ALTER TABLE `examenes`
-  ADD PRIMARY KEY (`CODEX`),
-  ADD KEY `PREG` (`PREG`);
+  ADD PRIMARY KEY (`CODEX`); 
 
 --
 -- Indices de la tabla `persona`

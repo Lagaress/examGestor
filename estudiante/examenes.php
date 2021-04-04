@@ -31,9 +31,10 @@ include('config.php');
 $dni = $_SESSION['dni'];
 
 
-    $db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ; 
-    $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA'); //TO TEST: No dataset
-    $QueryAsigs= mysqli_query($db,"SELECT ASIG FROM alumno WHERE DNI=$dni" ); //TO TEST: No dataset
+    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE) ; 
+
+    $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA'); 
+    $QueryAsigs= mysqli_query($db,"SELECT ASIG FROM alumno WHERE DNI='$dni" );
     $QueryDate= mysqli_query($db," SELECT CURDATE()" ); 
 
 

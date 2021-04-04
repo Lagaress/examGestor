@@ -5,7 +5,8 @@ $dni = $_SESSION['dni'];
 $id=$_GET['Identificador'];
 $nota=0;
 include('config.php');
-$db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ;
+$db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE) ; 
+
 
 if(isset($_POST['Submit'])){
     $response = $_POST['response'];

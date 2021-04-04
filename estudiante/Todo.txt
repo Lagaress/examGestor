@@ -1,2 +1,3 @@
 * Calculo de notas
 * Test con datos
+* Añadir un join a las calificaciones para ver de que asignatura es la calificacion
