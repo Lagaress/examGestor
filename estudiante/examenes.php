@@ -34,14 +34,15 @@ $dni = $_SESSION['dni'];
     $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE) ; 
 
     $QueryExamenes= mysqli_query($db,'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA'); 
-    $QueryAsigs= mysqli_query($db,"SELECT ASIG FROM alumno WHERE DNI='$dni" );
+    echo 'SELECT TEM, ASIG , FECHA, CODEX FROM examenes WHERE FECHA >= CURDATE() ORDER BY FECHA';
+    $QueryAsigs= mysqli_query($db,"SELECT MATRICULADO FROM alumno WHERE DNI='$dni'" );
     $QueryDate= mysqli_query($db," SELECT CURDATE()" ); 
 
 
-    $ResulAsigs = mysqli_fetch_all($QueryAsigs); //TO TEST: No dataset
-    $Asigs = explode(',' , $ResulAsigs[0][0]); //TO TEST: No dataset
+    $ResulAsigs = mysqli_fetch_all($QueryAsigs); 
+    $Asigs = explode(',' , $ResulAsigs[0][0]); 
     
-    $Date = mysqli_fetch_row($QueryDate); //TO TEST: No dataset
+    $Date = mysqli_fetch_row($QueryDate); 
 
 
     echo '<table>
@@ -61,10 +62,10 @@ $dni = $_SESSION['dni'];
     </tr>
 
         ';
-    if($QueryExamenes) { //TO TEST: No dataset
-        while($row = mysqli_fetch_assoc($QueryExamenes)){ //TO TEST: No dataset
+    if($QueryExamenes) { 
+        while($row = mysqli_fetch_assoc($QueryExamenes)){ 
     
-            for ( $i = 0 ; $i < count($Asigs) ; $i++ ){ //TO TEST: No dataset
+            for ( $i = 0 ; $i < count($Asigs) ; $i++ ){
 
                 if ($Asigs[$i] == $row['ASIG']){
                     echo '<tr>
