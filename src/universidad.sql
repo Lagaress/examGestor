@@ -39,7 +39,7 @@ CREATE TABLE `alumno` (
 
 INSERT INTO `alumno` (`DNI`, `CURSO`, `GRADO`, `MATRICULADO`) VALUES
 ('11111111B', '3', 'GII', 'PW,EDNL,POO,AAED'),
-('33432443i', '2', 'GITI', 'TERMO,FLUIDOS'),
+('33432443i', '2', 'GITI', 'TERMO,FLUIDOS,PW,EDNL,POO,AAED,IP,IG'),
 ('45611234T', '1', 'GII', 'IP,IG');
 
 -- --------------------------------------------------------
@@ -57,7 +57,6 @@ CREATE TABLE `asignaturas` (
 --
 -- Volcado de datos para la tabla `asignaturas`
 --
-
 INSERT INTO `asignaturas` (`CODIGO`, `CURSOASIG`, `IDTEMAS`) VALUES
 ('EDNL', 2, '1,2,3'),
 ('PW', 3, '4,5,6'),
@@ -108,9 +107,14 @@ CREATE TABLE `examenes` (
 --
 
 INSERT INTO `examenes` (`CODEX`, `FECHA`, `PASS`, `NUM_PREG`, `TEM`, `ASIG`) VALUES
+('0', '2021-04-04', 'a', 2, '2', 'PW'),
 ('1', '2021-05-05', 'a', 2, '2', 'POO'),
 ('2', '2021-06-06', 'b', 1, '2', 'EDNL'),
-('3', '2021-04-01', 'c', 10, 'Programacion Web', 'PW');
+('4', '2021-05-05', 'a', 2, '2', 'IG'),
+('5', '2021-06-06', 'b', 1, '2', 'IP'),
+('6', '2021-05-05', 'a', 2, '2', 'PW'),
+('7', '2021-06-06', 'b', 1, '2', 'TERMO'),
+('3', '2021-04-07', 'c', 10, 'Programacion Web', 'PW');
 
 -- --------------------------------------------------------
 
