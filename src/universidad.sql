@@ -303,13 +303,7 @@ ALTER TABLE `persona`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `DNI` (`DNI`,`USER`);
 
---
--- Indices de la tabla `preguntas`
---
-ALTER TABLE `preguntas`
-  ADD PRIMARY KEY (`IDPREG`);
 
---
 -- Indices de la tabla `profesor`
 --
 ALTER TABLE `profesor`
