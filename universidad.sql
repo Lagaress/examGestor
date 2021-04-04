@@ -53,12 +53,16 @@ CREATE TABLE `asignaturas` (
 --
 
 CREATE TABLE `calificaciones` (
-  `CODIGO` varchar(19) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `CODIGO` int(11) NOT NULL,
   `ALUM_DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `COD_EX` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `NOTA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+INSERT INTO `calificaciones` (`CODIGO`, `ALUM_DNI`,`COD_EX`.`NOTA`) VALUES
+(1 , '33432443i', '2' , '10'),
+(2 , '33432443i', '1' , '8');
 -- --------------------------------------------------------
 
 --
@@ -73,6 +77,10 @@ CREATE TABLE `examenes` (
   `TEM` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ASIG` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `examenes` (`CODEX`, `FECHA`,`PASS`.`NUM_PREG`,`TEM`,`ASIG`) VALUES
+(1 , '04-03-2021', 'a' , '2', '2' , 'POO'),
+(2 , '04-03-2021', 'b' , '1', '2', 'EDNL');
 
 -- --------------------------------------------------------
 
@@ -147,6 +155,13 @@ INSERT INTO `profesor` (`DNI`, `ASIGASOC`) VALUES
 ('00000000p', ''),
 ('33245544r', '');
 
+
+CREATE TABLE `respuestas` (
+  `ID_PREG` int(11) NOT NULL,
+  `ALUM_DNI` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `COD_EX` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RESPALUMN` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- --------------------------------------------------------
 
 --

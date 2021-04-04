@@ -1,0 +1,3 @@
+* Conseguir meter los datos de prueba , a ver si hago el import bien de una puta vez
+* Terminar el formulario de los examenes para que se submiteen los valores
+* Una vez submiteados los valores ver como iterar para guardar y calcular la nota

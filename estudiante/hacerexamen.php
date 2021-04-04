@@ -2,14 +2,22 @@
 
 session_start();
 $dni = $_SESSION['dni'];
+$id=$_GET['Identificador'];
 
 include('config.php');
 $db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ;
 
 if(isset($_POST['Submit'])){
 
-    //TODO Comprobacion de preguntas correctas
-    //TODO Insercción de nota
+    while(1){
+        //TODO Comprobacion de preguntas correctas e iteración para calcular nota
+        mysqli_query($db ,"INSERT INTO respuestas  (ID_PREG,ALUM_DNI,COD_EX,RESPALUMN ) VALUES
+        ('$preg', '$dni' , '$id' , '$resp')");
+    }
+
+    mysqli_query($db ,"INSERT INTO calificaciones  (CODIGO,ALUM_DNI,COD_EX,NOTA ) VALUES
+    (NULL,'$dni' , '$id' , '$nota')");
+
     header('location: /estudiante/examenes.php');
     die();
 }
@@ -17,7 +25,6 @@ if(isset($_POST['Submit'])){
 
 if (isset($_GET['Identificador'])){
 
-    $id=$_GET['Identificador'];
 
     $result = mysqli_query($db,"SELECT * FROM calificaciones WHERE COD_EX=$id AND ALUM_DNI=$dni");
 	$result = mysqli_fetch_array($result,MYSQLI_BOTH);
