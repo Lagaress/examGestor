@@ -119,6 +119,11 @@
 
 	mysqli_close($conexionadmin); // Cerramos la conexión con la BD
 
+	echo " <br>   <form action=\"./panelprofesor.php\" >
+	<input type=\"submit\" value=\"Volver\" />
+	</form>";
+
+
 	?>
 
 </body>

@@ -63,6 +63,10 @@ if ($opcionDelCRUD == "crear")
 
     }
 
+    echo " <br>   <form action=\"./panelprofesor.php\" >
+        <input type=\"submit\" value=\"Volver\" />
+        </form>";
+
 }
 
 else if ($opcionDelCRUD == "editar")
@@ -140,6 +144,10 @@ else if ($opcionDelCRUD == "editar")
     <td> <input type=\"text\" name=\"preguntaAEditar\" placeholder=\"Editar\"  >
     <input type=\"submit\" value=\"Editar\" placeholder=\"Editar\"  >
     </form> " ;
+
+    echo " <br>   <form action=\"./panelprofesor.php\" >
+    <input type=\"submit\" value=\"Volver\" />
+    </form>";
 
 }
 
@@ -219,29 +227,9 @@ else
     <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\"  >
     </form> " ;
 
-    /*echo "<form name=\"seleccionarPreguntaParaEliminar\" method=\"POST\" action=\"delPregunta.php\">
-    <select name='preguntaAEliminar'>" ;
-    for ($m = 0 ; $m < count($vector_almacenamiento_preguntas) ; $m++ )
-    {
-
-        echo "<option>".$vector_almacenamiento_preguntas[$m]."</option>"; 
-
-    }
-    echo "
-    </select>
-    <input type=\"submit\" />
-    " ;*/
-    
-
-    /*
-    // Pasamos la pregunta a eliminar por post 
-    echo "
-    <form method=\"POST\" enctype=\"multipart/form-data\" action=\"delPregunta.php\" > 
-    <td> <input type=\"text\" name=\"preguntaAEliminar\" placeholder=\"Eliminar\"  >
-    <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\"  >
-    </form> 
-    " ; 
-*/
+    echo " <br>   <form action=\"./panelprofesor.php\" >
+    <input type=\"submit\" value=\"Volver\" />
+    </form>";
 
 
 }

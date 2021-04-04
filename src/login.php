@@ -81,24 +81,24 @@ if ( isset($_POST['submit'])) {
     <meta content="charset=utf-8" />
     <link href="../templates/login.css" rel="stylesheet" type="text/css">
 
-    <title>Login</title>
+    <title>Inicio de Sesión</title>
 </head>
 <body>
 <body>
 	<div class="login">
 		<div class="login-screen">
 			<div class="app-title">
-				<h1>Login</h1>
+				<h1>Inicio de Sesión</h1>
 			</div>
             <form method="POST" enctype="multipart/form-data" action="./login.php">
                 <div class="login-form">
                     <div class="control-group">
-                        <input type="text" name="user" class="login-field" value="" placeholder="username" id="login-name">
+                        <input type="text" name="user" class="login-field" value="" placeholder="Usuario" id="login-name">
                         <label class="login-field-icon fui-user" for="login-name"></label>
                     </div>
 
                     <div class="control-group">
-                        <input type="password" name="pass" class="login-field" value="" placeholder="password" id="login-pass">
+                        <input type="password" name="pass" class="login-field" value="" placeholder="Contraseña" id="login-pass">
                         <label class="login-field-icon fui-lock" for="login-pass"></label>
                     </div>
 

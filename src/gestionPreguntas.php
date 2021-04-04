@@ -57,12 +57,14 @@
             <input type=\"radio\" name=\"opcionCRUD\" value=\"editar\">Editar
             <input type=\"radio\" name=\"opcionCRUD\" value=\"borrar\">Borrar
             <input type=\"submit\" />
-        "
+        </form>
+            " ;
 
+            echo " <br>   <form action=\"./panelprofesor.php\" >
+            <input type=\"submit\" value=\"Volver\" />
+            </form>";
+    
     ?>
-
-
-
 
 </body>
 </html>
