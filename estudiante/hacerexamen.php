@@ -3,23 +3,22 @@
 session_start();
 $dni = $_SESSION['dni'];
 $id=$_GET['Identificador'];
-
+$nota=0;
 include('config.php');
 $db = mysqli_connect('DB_SERVER','DB_USERNAME','DB_PASSWORD','DB_DATABASE') ;
 
 if(isset($_POST['Submit'])){
-
-    while(1){
-        //TODO Comprobacion de preguntas correctas e iteración para calcular nota
-        mysqli_query($db ,"INSERT INTO respuestas  (ID_PREG,ALUM_DNI,COD_EX,RESPALUMN ) VALUES
-        ('$preg', '$dni' , '$id' , '$resp')");
+    $response = $_POST['response'];
+    
+    for ( $i = 0 ; $i < count($response) ; $i++ ){
+        mysqli_query($db ,"UPDATE respuestas  SET RESPALUMN=$response[$i] WHERE ID_PREG=$preg[$i] AND ALUM_DNI=$dni AND COD_EX=$id ");
     }
 
-    mysqli_query($db ,"INSERT INTO calificaciones  (CODIGO,ALUM_DNI,COD_EX,NOTA ) VALUES
-    (NULL,'$dni' , '$id' , '$nota')");
+    //TO DO query para calcular las notas
+    mysqli_query($db ,"UPDATE calificaciones SET NOTA=$nota WHERE ALUM_DNI=$dni AND COD_EX=$id");
 
     header('location: /estudiante/examenes.php');
-    die();
+    exit;
 }
 
 
@@ -29,7 +28,9 @@ if (isset($_GET['Identificador'])){
     $result = mysqli_query($db,"SELECT * FROM calificaciones WHERE COD_EX=$id AND ALUM_DNI=$dni");
 	$result = mysqli_fetch_array($result,MYSQLI_BOTH);
 
-    if((bool)$result){
+    if(!(bool)$result){
+        mysqli_query($db ,"INSERT INTO calificaciones  (CODIGO,ALUM_DNI,COD_EX,NOTA ) VALUES
+        (NULL,'$dni' , '$id' , '$nota')");
         $QueryNumPreg= mysqli_query($db,"SELECT NUM_PREG FROM examenes WHERE CODEX=$id" );
         $NumPreg = mysqli_fetch_row($QueryNumPreg);
 
@@ -45,15 +46,20 @@ if (isset($_GET['Identificador'])){
         }
 
 
-        $QueryPregs = mysqli_query($db,"SELECT ENUNCIADO,RESPONSES FROM preguntas WHERE $Temas ORDER BY RAND() LIMIT $NumPreg");
+        $QueryPregs = mysqli_query($db,"SELECT IDPREG,ENUNCIADO,RESPONSES FROM preguntas WHERE $Temas ORDER BY RAND() LIMIT $NumPreg");
         
         echo '<form method=post action="hacerexamen.php">';
+        $j=0;
         while($row = mysqli_fetch_assoc($QueryPregs)){
+            $preg[$j] = $row.['IDPREG'];
+            mysqli_query($db ,"INSERT INTO respuestas  (ID_PREG,ALUM_DNI,COD_EX,RESPALUMN ) VALUES (NULL,'$dni' , '$id' , NULL)");
+
             echo $row.['ENUNCIADO']; 
             $ArrayResp = explode(',' , $QueryPregs['RESPONSES'][0][0]);   
             for ( $i = 0 ; $i < count($ArrayResp) ; $i++ ){
-                echo $ArrayResp[$i]; //TODO formatear esto para que sea una checkbox con solo uno seleccionable. Y se submitee el value de la respuesta
+                echo '<input type="radio" name=response['.$j.']'." value='".$ArrayResp[$i],"' />".$ArrayResp[$i]; 
             }
+            $j++;
         }
         echo '<button class="boton" id="responses" type="submit" name="submited">Iniciar Sesión</button>';
         echo '</form>';
