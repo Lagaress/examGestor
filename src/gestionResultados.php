@@ -31,24 +31,19 @@
 	
 	// Consulta SQL	PARA OBTENER EL ALUMNO Y SU CALIFICACIÓN
 	$consulta = mysqli_query($conexionadmin, "SELECT ALUM_DNI as DNI , 
-												NOTA as NOTA , 
-												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA < 5 ) as SUSPENSOS ,
-												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA BETWEEN 5 AND 6 )  as APROBADOS ,
-												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA BETWEEN 7 AND 8 ) as NOTABLES , 
-												( SELECT COUNT(ALUM_DNI) FROM calificaciones WHERE NOTA > 8 ) as SOBRESALIENTES , 
-												ROUND(AVG(NOTA), 2) as MEDIA
+												NOTA as NOTA 
 												FROM calificaciones c, asignaturas a , profesor p , examenes e
 												WHERE p.DNI = '$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX
-												GROUP BY ALUM_DNI"
+												"
 							);
 
 	// CONSULTA SQL PARA OBTENER LOS SUSPENSOS
 	$consulta_obtencion_suspensos = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA < 5" ) ;
 
-	$mostrar_suspensos = mysqli_fetch_array($consulta_obtencion_aprobados) ;
+	$mostrar_suspensos = mysqli_fetch_array($consulta_obtencion_suspensos) ;
 							
 	// CONSULTA SQL PARA OBTENER LOS APROBADOS
-	$consulta_obtencion_aprobados = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA > 5" ) ;
+	$consulta_obtencion_aprobados = mysqli_query($conexionadmin , "SELECT COUNT(ALUM_DNI) FROM calificaciones c, asignaturas a , profesor p , examenes e WHERE p.DNI ='$dnisesion' AND p.ASIGASOC = a.CODIGO AND p.ASIGASOC = e.ASIG AND c.COD_EX = e.CODEX AND NOTA >= 5" ) ;
 
 	$mostrar_aprobados = mysqli_fetch_array($consulta_obtencion_aprobados) ;
 
@@ -110,7 +105,7 @@
 	"
 		<table>
 			<tr></tr>
-			<td>El número de suspensos es: $mostrar_aprobados[0]\n</td>
+			<td>El número de suspensos es: $mostrar_suspensos[0]\n</td>
 			<tr></tr>
 			<td>El número de aprobados es: $mostrar_aprobados[0]</td>
 			<tr></tr>
