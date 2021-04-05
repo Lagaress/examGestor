@@ -12,7 +12,7 @@ if(isset($_POST['examenes'])){
 }*/
 
 if(isset($_POST['calificaciones'])){
-    header('location: /estudiante/calificaciones.php');
+    header('location: calificaciones.php');
     exit;
 }
 

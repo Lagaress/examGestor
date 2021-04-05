@@ -2,11 +2,62 @@
 <!DOCTYPE html>
 <html>
 <head> 
+<style>
+
+h1 {
+    color: black ;
+    font-family: fantasy;
+    text-align: center ; 
+    
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #ffff;
+}
+
+.tituloCalificaciones
+{
+
+	color: black ;
+	font-family: fantasy ;  
+
+}
+
+.contenidoGlobal1 
+{
+
+	background-color: grey;
+	text-align:center ; 
+	font-weight: bold ; 
+
+}
+
+.contenidoGlobal2
+{
+
+	text-align:center ; 
+	font-weight: bold ; 
+
+}
+
+</style>
 	<meta content = "charset=utf-8"/> 
 	<title>Ver las Calificaciones</title>
 </head>
 <body>
-	<h1>Calificaciones del profesor</h1>
+	<h1 class="tituloCalificaciones">Calificaciones del profesor</h1>
 	<?php
 
 	// Obtenemos el DNI	del profesor que ha iniciado sesión 
@@ -105,15 +156,15 @@
 	"
 		<table>
 			<tr></tr>
-			<td>El número de suspensos es: $mostrar_suspensos[0]\n</td>
+			<td class=\"contenidoGlobal1\">El número de suspensos es: $mostrar_suspensos[0]\n</td>
 			<tr></tr>
-			<td>El número de aprobados es: $mostrar_aprobados[0]</td>
+			<td class=\"contenidoGlobal2\">El número de aprobados es: $mostrar_aprobados[0]</td>
 			<tr></tr>
-			<td>El número de notables es: $mostrar_notables[0]</td>
+			<td class=\"contenidoGlobal1\">El número de notables es: $mostrar_notables[0]</td>
 			<tr></tr>
-			<td>El número de sobresalientes es: $mostrar_sobresalientes[0]</td>
+			<td class=\"contenidoGlobal2\">El número de sobresalientes es: $mostrar_sobresalientes[0]</td>
 			<tr></tr>
-			<td>La media de la clase es: $mostrar_media[0]</td>
+			<td class=\"contenidoGlobal1\">La media de la clase es: $mostrar_media[0]</td>
 		</table>
 	" ;
 

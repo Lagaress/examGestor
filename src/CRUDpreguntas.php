@@ -1,3 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h1 {
+    color: black ;
+    font-family: fantasy;
+    text-align: center ; 
+    font-size: 30px ; 
+    
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+<title>Editar Preguntas</title>
+</head>
+<body>
+
+
 <?php
 $opcionDelCRUD = $_POST['opcionCRUD'];
 $asignaturasProfesor = $_POST['asignaturasProfesor'];
@@ -26,7 +60,7 @@ if (mysqli_connect_errno())
 if ($opcionDelCRUD == "crear")
 {
 
-    echo "<h1>¿Qué pregunta quieres crear?<h1>" ;
+    echo "<h1 class=\"tituloPagina\">¿Qué pregunta quieres crear?<h1>" ;
     
     $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
     $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
