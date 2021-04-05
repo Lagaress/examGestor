@@ -89,5 +89,8 @@ $dni = $_SESSION['dni'];
         }
     }
     echo '</table>';
+    echo "<form action=\"./panelalumno.php\" >
+    <input type=\"submit\" value=\"Volver\" />
+    </form>";
 
 ?>

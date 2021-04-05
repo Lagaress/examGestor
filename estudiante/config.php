@@ -5,5 +5,5 @@
     define('DB_PASSWORD', 'ranateresa');
     define('DB_DATABASE', 'universidad'); 
 
-    $db = mysqli_connect('localhost','teresa','ranateresa','exam_gestor') ; 
+    $db = mysqli_connect('localhost','root','777303','universidad') ; 
 ?>

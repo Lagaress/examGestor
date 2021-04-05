@@ -73,5 +73,8 @@ echo '<table>
 
 
 echo '</table>';
+echo "<form action=\"./panelalumno.php\" >
+<input type=\"submit\" value=\"Volver\" />
+</form>";
 ?>
 

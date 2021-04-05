@@ -1,59 +1,127 @@
+<!-- Thanks to Tushar Sonawane to provde me that amazing css -->
+
 <?php
+$incorrectlogin = '';
 
-echo '<PRE>
+function autentificado($user, $pass){
+    $conexion = mysqli_connect('localhost','root', '777303', 'universidad') ; 
+    if (mysqli_connect_errno()) { 
+        printf("Conexión fallida: %s\n", mysqli_connect_error());
+        die();
+    }
 
-Frogs against DevOps!
+    $ifuser = mysqli_query($conexion,"SELECT * FROM persona WHERE USER='$user' && PASS='$pass'");
+    $numuser = mysqli_num_rows($ifuser);
+    session_start();
+    $sujeto = mysqli_fetch_array($ifuser);
+    if($numuser==1){
+        $_SESSION['nombre'] = $sujeto['NOMBRE'];
+        $_SESSION['apellidos'] = $sujeto['APELLIDOS'];
+        $_SESSION['foto'] = $sujeto['FOTO'];
+        $_SESSION['dni'] = $sujeto['DNI'];
+    }
+    return $numuser;
+}
 
-                  ####
-            #    #    ########
-           #  ### ####XXXXXXXX######    ####
-            X ## # XXXXXXXXXXXXXXXXX##########
-         ## ##   #X       XXXXXXXXXXXXX#XXXX####
-       ##  X#   ##XXXXXXXX      XXXXXXXXXXXXXX#X#
-     ##  XXXX#####XXXXXXXXXXXXXX              X#X##
-    #  XXXXXXX##XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   XX#
-   #  XXXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  X##
-  #X##XXXXXXXXX####XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XX#
-  # XXXXXXXXXXXXXXX########XXXXXXXXXXXXXXXXXXXXXXXXXX  X#
-  # XXXXXXXXX######XXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXX X##   ########
-   ##########X X X XXXXXXXX#XXXXXXXXXXXXXXXXXXXXXXXXXXXX XX###XXXXXXXX#
-    X X X X X X X X X X #####XXXXXXXXXXXXXXXXXXXXXXXXXXXX  XX##XXXXXXXX#
-      #X X X X X XXXX#XXXXXXX####XXXXXXXXXXXXXXXXXXXXXXXXXX XXX##XXXXXX#
-        X X X X X XXXXX X X XXXXX##XXXXXXXXXXXXXXXXXXXXXXXXX  XXX#XXXX#
-         X X X X XX#X#XXXXXXXXXXXXX#XXXXXXXXXXXXXXXXXX########X########
-               #X X XXX X X X X XXX#XXXXXXXXXXXXXX###XXXXXXXXX#X#XXXXX#
-                #XXX##X#XXXXXXXXXXX#XXXXXXXXXXX###X#X#X#XXXXXXX#X#XXXX#
-                # X X##XXXXXX X X XX#XXXXXXXX##X##XX#X#X#XXXXXXX#XXX#XX#
-                ####X#X#####XXXXXXXX#XXXXXX##X##XXXXXXX#X#X#XXX#XXX#XX##
-               #X # # X X #XX X XXX#XXXX###XX#XXXXXXXX#X#X#XXX#XXX####
-              ##XXX### X X#XXXXXX##XXX##XXX#XXXXXXXXX#X#X#XXXXXX###
-            ###X X ### # X#X X XX#XXX##XXXX#X#XXXXXXXXX#X#XXXXX####
-        ###XXXXXX########XXXXXX# XXX#XXX##XXX#XXXXXXX#X#XXX##XX#X#
-    ############       X X #X# X X #X##XXXX#XXXXXXX#X#X#X#X#XX#X
-      ###     ##      #XXX#X# X X #XXXXXXX#X#XXXXX#X###XXX#XX#X
-     # #     ##      # X #X# X X X#XXXXXX#X#XXXXXXX#XXXXXXX##X
-     #            ##XXX#X# X X X #XXXXX#X#XXXXX###X#XXXXX##X
-            ######X X #X#   X X X#XXXX#X#X#X###XXX#X##### X
-              ##X#XXXX###      #X X##X#X#X###X#X#X###XX X
-        ########XXX## X##################XXXXXX##X# X X
-        ####  #########################X#######X X X
-            ###          ###############
-                             ###
-</PRE>'   
-;
+function givetipe($user, $pass){
+    $conexion = mysqli_connect('localhost','root', '777303', 'universidad') ; 
+    if (mysqli_connect_errno()) {
+        printf("Conexión fallida: %s\n", mysqli_connect_error());
+        exit();
+    }
+
+    $consulta = mysqli_query($conexion,"SELECT TIPO FROM persona WHERE USER='$user' && PASS='$pass'");
+    $type = mysqli_fetch_array($consulta);
+
+    return $type['TIPO'];
+}
+
+
+if ( isset($_POST['submit'])) {
+    $incorrectlogin = '';
+    $user = $_POST['user'];
+    $pass = $_POST['pass'];
+
+    // $conexion = mysqli_connect('localhost','root', '777303', 'universidad');
+    // if (mysqli_connect_errno()) {
+    //     printf("Conexión fallida: %s\n", mysqli_connect_error());
+    //     die();
+    // }
+
+    // $ifuser = mysqli_query($conexion,"SELECT * FROM persona WHERE USER='$user' && PASS='$pass'");
+    // $sujeto = mysqli_fetch_array($ifuser);
+    // echo $sujeto['nombre'];
+
+
+    // session_start();
+    // $_SESSION['nombre'] = $sujeto['NOMBRE'];
+    // $_SESSION['apellidos'] = $sujeto['APELLIDOS'];
+
+    
+    if( autentificado($user, $pass)==1){
+        $tipo = givetipe($user, $pass);
+        switch($tipo){
+            case 'ALUMNO': header("Location:estudiante/panelalumno.php");
+                break;
+            case 'PROFESOR': header("Location:profesor/panelprofesor.php");
+                break;
+            case 'ADMIN':  header("Location:admin/paneladmin.php");
+                break;
+            default: echo "Contacte con un administrador, su cuenta necesita reparación"; 
+        }
+    }else{
+        $incorrectlogin = 'Identificacion incorrecta';
+    }
+    }
 ?>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
-    <head>
+<html>
+<head>
+    <meta content="charset=utf-8" />
+    <link href="templates/login.css" rel="stylesheet" type="text/css">
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+<body>
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Inicio de Sesión</h1>
+			</div>
+            <form method="POST" enctype="multipart/form-data" action="./index.php">
+                <div class="login-form">
+                    <div class="control-group">
+                        <input type="text" name="user" class="login-field" value="" placeholder="Usuario" id="login-name">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-        <meta charset="utf-8"/>
-        <title> Main Page </title>
+                    <div class="control-group">
+                        <input type="password" name="pass" class="login-field" value="" placeholder="Contraseña" id="login-pass">
+                        <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
 
-    </head>
-
-    <body>
-        
-    </body>
-
+                    <input type="submit" value="Enviar" name="submit" class="btn btn-primary btn-large btn-block">
+                </div>
+            </form><br>
+            <?php echo "<div color='red' style=\"text-align : center; color : red \">".$incorrectlogin."</div>" ;
+             $incorrectlogin = ''; ?>
+		</div>
+	</div>
+</body>
+    
+</body>
 </html>
+
+
+
+
+<!-- <form method="POST" enctype="multipart/form-data" action="./login.php" style="text-align: center; min-height: 50%;">
+        <div style="background-color: aquamarine; ">
+            Usuario: <input type="text" placeholder="&#128272 Usuario" name="user"  required><br>
+            Password: <input type="password" placeholder="&#128272 Contraseña" name="pass" required><br>
+            <input type="submit" value="Enviar" name="submit">
+        </div>
+    </form>        -->
+
+
