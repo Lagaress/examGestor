@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="ISO-8859-1">
 <style>
 h1 {
     color: black ;
@@ -156,10 +157,8 @@ else if ($opcionDelCRUD == "editar")
             {
 
                 $fila = mysqli_fetch_array($consulta_mostrar_preguntas);
-
+            
                 $vector_preguntas = explode("," , $fila['RESPONSES']) ;
-
-                $id = $fila['IDPREG'] ;
 
                 echo  # Mostramos la tabla
                     "<tr class=\"filasVerCalificaciones\" >
@@ -169,17 +168,23 @@ else if ($opcionDelCRUD == "editar")
                     <td> ".$vector_preguntas[1]." </td>
                     <td> ".$vector_preguntas[2]." </td>
                     <td> ".$vector_preguntas[3]." </td>
-                    <td> ".$fila['CORRECTA']." </td>
-                    <td>
-                            <input type=\"hidden\" name=\"preguntaAEditar\" value=\"$id\" placeholder=\"Editar\">
-                            <input type=\"submit\" value=\"Editar\" placeholder=\"Editar\">
-                    </td>
-                    </tr>" ;
-                }
+                    <td> ".$fila['CORRECTA']." </td><tr>";
 
             }
 
+                
+
         }
+                
+                 "</table></form>" ;
+
+    }
+
+        echo "
+        <form method=\"POST\" enctype=\"multipart/form-data\" action=\"updatePregunta.php\" >
+        <input style=\"width: 500px;\" type=\"text\" name=\"preguntaAEditar\" placeholder=\"¿Qué pregunta quieres editar?\"  required><br> 
+        <input type=\"submit\" name=\"valoresDeLaPregunta\" value=\"ENVIAR\" ></td>
+        </form><br>";
 
         echo 
         "
@@ -243,9 +248,7 @@ else
                     $fila = mysqli_fetch_array($consulta_mostrar_preguntas);
 
                     $vector_preguntas = explode("," , $fila['RESPONSES']) ;
-
-                    $id = $fila['IDPREG'] ;
-
+                    
                     echo  # Mostramos la tabla
                         "<tr class=\"filasVerCalificaciones\" >
                         <td> ".$fila['IDPREG']." </td>
@@ -255,16 +258,21 @@ else
                         <td> ".$vector_preguntas[2]." </td>
                         <td> ".$vector_preguntas[3]." </td>
                         <td> ".$fila['CORRECTA']." </td>
-                        <td>
-                            <input type=\"hidden\" name=\"preguntaAEliminar\" value=\"$id\" placeholder=\"Eliminar\">
-                            <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\">
-                        </td>
                         </tr>" ;
+
                 }
 
             }
+                
+            "</table></form>" ;
 
         }
+
+        echo "
+        <form method=\"POST\" enctype=\"multipart/form-data\" action=\"delPregunta.php\" >
+        <input style=\"width: 500px;\" type=\"text\" name=\"preguntaAEliminar\" placeholder=\"¿Qué pregunta quieres eliminar?\"  required><br> 
+        <input type=\"submit\" name=\"valoresDeLaPregunta\" value=\"ENVIAR\" ></td>
+        </form><br>";
 
         echo 
         "

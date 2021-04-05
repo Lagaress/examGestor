@@ -18,6 +18,10 @@ $nuevaRespCorrecta = $_POST['RESPCORRECTA'] ;
 
 $contadorDeCambios = 0 ; 
 
+// Unimos las preguntas 
+$arr = array( $nuevaResp1, $nuevaResp2, $nuevaResp3, $nuevaResp4 ) ;
+$vector_de_preguntas = implode("," , $arr) ;
+
 if ( !empty($nuevoEnunciado) )
 {
 
@@ -25,39 +29,11 @@ if ( !empty($nuevoEnunciado) )
   $contadorDeCambios++ ;
 }
 
-if ( !empty($nuevaResp1) )
+if ( !empty($vector_de_preguntas) )
 {
 
-    mysqli_query ($update , "UPDATE preguntas SET RESP1 ='$nuevaResp1' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
+    mysqli_query ($update , "UPDATE preguntas SET RESPONSES ='$vector_de_preguntas' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
     $contadorDeCambios++ ;
-
-
-}
-
-if ( !empty($nuevaResp2) )
-{
-
-    mysqli_query ($update , "UPDATE preguntas SET RESP2 ='$nuevaResp2' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
-    $contadorDeCambios++ ;
-
-
-}
-
-if ( !empty($nuevaResp3) )
-{
-
-    mysqli_query ($update , "UPDATE preguntas SET RESP3 ='$nuevaResp3' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
-    $contadorDeCambios++ ;
-
-
-}
-
-if ( !empty($nuevaResp4) )
-{
-
-    mysqli_query ($update , "UPDATE preguntas SET RESP4 ='$nuevaResp4' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
-    $contadorDeCambios++ ;
-
 
 }
 
@@ -84,7 +60,7 @@ else
     echo "La pregunta se ha actualizado correctamente" ;
     echo 
     "
-    <form action=\"panelprofesor.php\">
+    <form action=\"../panelprofesor.php\">
     <input type=\"submit\" value=\"Volver\"/>
     </form>
     " ;
