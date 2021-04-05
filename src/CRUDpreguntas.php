@@ -83,7 +83,10 @@ else if ($opcionDelCRUD == "editar")
     $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
 
     // Mostramos los encabezados de la tabla
-    echo " <table class=\"encabezadoTablaPreguntas\" > 
+    echo " 
+    <form method=\"POST\" enctype=\"multipart/form-data\" action=\"updatePregunta.php\" > 
+    <table class=\"encabezado\
+    <table class=\"encabezadoTablaPreguntas\" > 
                     <tr class = \"titulosMostrarPreguntas\">
                         <th>IDPREGUNTA</th>
                         <th>ENUNCIADO</th>
@@ -122,6 +125,8 @@ else if ($opcionDelCRUD == "editar")
 
                 $vector_preguntas = explode("," , $fila['RESPONSES']) ;
 
+                $id = $fila['IDPREG'] ;
+
                 echo  # Mostramos la tabla
                     "<tr class=\"filasVerCalificaciones\" >
                     <td> ".$fila['IDPREG']." </td>
@@ -131,25 +136,24 @@ else if ($opcionDelCRUD == "editar")
                     <td> ".$vector_preguntas[2]." </td>
                     <td> ".$vector_preguntas[3]." </td>
                     <td> ".$fila['CORRECTA']." </td>
-                    ";
-                echo "<tr>";
+                    <td>
+                            <input type=\"hidden\" name=\"preguntaAEditar\" value=\"$id\" placeholder=\"Editar\">
+                            <input type=\"submit\" value=\"Editar\" placeholder=\"Editar\">
+                    </td>
+                    </tr>" ;
+                }
 
             }
 
         }
 
-    }
-
-    // Enviamos el dato a borrar por POST 
-    echo "
-    <form name=\"seleccionarPreguntaParaEditar\" enctype=\"multipart/form-data\" method=\"POST\" action=\"updatePregunta.php\">
-    <td> <input type=\"text\" name=\"preguntaAEditar\" placeholder=\"Editar\"  >
-    <input type=\"submit\" value=\"Editar\" placeholder=\"Editar\"  >
-    </form> " ;
-
-    echo " <br>   <form action=\"./panelprofesor.php\" >
-    <input type=\"submit\" value=\"Volver\" />
-    </form>";
+        echo 
+        "
+        </table></form>
+        <form action=\"panelprofesor.php\">
+        <input type=\"submit\" value=\"Volver\"/>
+        </form>
+        " ;
 
 }
 
@@ -164,7 +168,10 @@ else
         $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
 
         // Mostramos los encabezados de la tabla
-        echo " <table class=\"encabezadoTablaPreguntas\" > 
+        echo " 
+        <form method=\"POST\" enctype=\"multipart/form-data\" action=\"delPregunta.php\" > 
+        <table class=\"encabezado\
+        <table class=\"encabezadoTablaPreguntas\" > 
                         <tr class = \"titulosMostrarPreguntas\">
                             <th>IDPREGUNTA</th>
                             <th>ENUNCIADO</th>
@@ -203,6 +210,8 @@ else
 
                     $vector_preguntas = explode("," , $fila['RESPONSES']) ;
 
+                    $id = $fila['IDPREG'] ;
+
                     echo  # Mostramos la tabla
                         "<tr class=\"filasVerCalificaciones\" >
                         <td> ".$fila['IDPREG']." </td>
@@ -212,27 +221,24 @@ else
                         <td> ".$vector_preguntas[2]." </td>
                         <td> ".$vector_preguntas[3]." </td>
                         <td> ".$fila['CORRECTA']." </td>
-                        ";
-                    echo "<tr>";
-
+                        <td>
+                            <input type=\"hidden\" name=\"preguntaAEliminar\" value=\"$id\" placeholder=\"Eliminar\">
+                            <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\">
+                        </td>
+                        </tr>" ;
                 }
 
             }
 
         }
- 
-    
-    // Enviamos el dato a borrar por POST 
-    echo "
-    <form name=\"seleccionarPreguntaParaEliminar\" enctype=\"multipart/form-data\" method=\"POST\" action=\"delPregunta.php\">
-    <td> <input type=\"text\" name=\"preguntaAEliminar\" placeholder=\"Eliminar\"  >
-    <input type=\"submit\" value=\"Eliminar\" placeholder=\"Eliminar\"  >
-    </form> " ;
 
-    echo " <br>   <form action=\"./panelprofesor.php\" >
-    <input type=\"submit\" value=\"Volver\" />
-    </form>";
-
+        echo 
+        "
+        </table></form>
+        <form action=\"panelprofesor.php\">
+        <input type=\"submit\" value=\"Volver\"/>
+        </form>
+        " ;
 
 }
 ?>

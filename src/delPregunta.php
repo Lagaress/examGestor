@@ -66,9 +66,10 @@
     $consulta_modificar_tema = "UPDATE temas SET BATPREGUNTAS='$string' WHERE ID='$tema_vector[0]'" ; // Creamos la consulta
     mysqli_query($conexionAdicionPregunta, $consulta_modificar_tema) ; // Lanzamos la consulta
 
-    
+    echo " <br>   <form action=\"./panelprofesor.php\" >
+    <input type=\"submit\" value=\"Volver\" />
+    </form>";
 
-    
     //header("Location: CRUDpreguntas.php") ;
     
 

@@ -78,5 +78,19 @@ if (   $contadorDeCambios == 0)
 
 }
 
+else 
+{
+
+    echo "La pregunta se ha actualizado correctamente" ;
+    echo 
+    "
+    <form action=\"panelprofesor.php\">
+    <input type=\"submit\" value=\"Volver\"/>
+    </form>
+    " ;
+
+
+}
+
 
 ?>

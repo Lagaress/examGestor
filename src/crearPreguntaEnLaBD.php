@@ -49,4 +49,11 @@
     mysqli_query($conexionAdicionPregunta, $consulta_modificar_tema) ; // Lanzamos la consulta
     
     echo "La pregunta ha sido añadida correctamente" ;
+
+    echo 
+    "
+    <form action=\"panelprofesor.php\">
+    <input type=\"submit\" value=\"Volver\"/>
+    </form>
+    " ;
 ?>
