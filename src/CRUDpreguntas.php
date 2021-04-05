@@ -27,6 +27,13 @@ if ($opcionDelCRUD == "crear")
 {
 
     echo "<h1>¿Qué pregunta quieres crear?<h1>" ;
+    
+    $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
+    $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
+    $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
+
+    $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
+    
     echo 
     "
     <form method=\"POST\" enctype=\"multipart/form-data\" action=\"crearPreguntaEnLaBD.php\">
@@ -34,13 +41,21 @@ if ($opcionDelCRUD == "crear")
             <tr>
             <th>
                 <br>Datos de la pregunta: <br>
-                <input style=\"width: 500px;\" type=\"text\" name=\"TEMA\" placeholder=\"Tema Asociado\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"ENUNCIADO\" placeholder=\"Enunciado\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"RESP1\" placeholder=\"Respuesta1\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"RESP2\" placeholder=\"Respuesta2\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"RESP3\" placeholder=\"Respuesta3\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"RESP4\" placeholder=\"Respuesta4\"  required><br>
                 <input style=\"width: 500px;\" type=\"text\" name=\"RESPCORRECTA\" placeholder=\"Respuesta Correcta\"  ><br>
+                <p>Tema asociado</p>
+                <select name ='TEMA'>";
+                for ($i = 0 ; $i < count($consulta_obtencion_temas_vector_separado) ; $i++)
+                {
+
+                    echo "<option>$consulta_obtencion_temas_vector_separado[$i]</option>" ;
+
+                }
+                echo "</select>
                 <input type=\"submit\" value=\"Crear Pregunta\" />
             <th>
             </tr>
@@ -48,20 +63,8 @@ if ($opcionDelCRUD == "crear")
     </form>
     " ;
 
-    echo "<h2>Los temas de tus asignaturas son:</h2>" ;
 
-    $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
-    $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
-    $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
-
-    // # Separamos el vector
-    $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
-    for ( $j = 0 ; $j < count($consulta_obtencion_temas_vector_separado) ; $j++ )
-    {
-
-        echo $consulta_obtencion_temas_vector_separado[$j].' ' ;
-
-    }
+    
 
     echo " <br>   <form action=\"./panelprofesor.php\" >
         <input type=\"submit\" value=\"Volver\" />
@@ -74,11 +77,22 @@ else if ($opcionDelCRUD == "editar")
 
     echo "<h1>¿Qué pregunta quieres editar?<h1>" ;
 
-    // MOSTRAMOS LAS PREGUNTAS 
     // # Hacemos una consulta obteniendo el ID de los temas de cada asignatura 
     $obtencion_temas_de_una_asignatura = "SELECT IDTEMAS FROM asignaturas WHERE CODIGO = '$asignaturasProfesor'" ;
     $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
     $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
+
+    // Mostramos los encabezados de la tabla
+    echo " <table class=\"encabezadoTablaPreguntas\" > 
+                    <tr class = \"titulosMostrarPreguntas\">
+                        <th>IDPREGUNTA</th>
+                        <th>ENUNCIADO</th>
+                        <th>RESPUESTA1</th>
+                        <th>RESPUESTA2</th>
+                        <th>RESPUESTA3</th>
+                        <th>RESPUESTA4</th>
+                        <th>RESPUESTACORRECTA</th>
+                    </tr>";
 
     // # Separamos el vector
     $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
@@ -105,30 +119,18 @@ else if ($opcionDelCRUD == "editar")
             {
 
                 $fila = mysqli_fetch_array($consulta_mostrar_preguntas);
-                    
-                if($i == 0) // Mostramos los encabezados
-                {
-                    echo " <table class=\"encabezadoTablaPreguntas\" > 
-                    <tr class = \"titulosMostrarPreguntas\">
-                        <th>IDPREGUNTA</th>
-                        <th>ENUNCIADO</th>
-                        <th>RESPUESTA1</th>
-                        <th>RESPUESTA2</th>
-                        <th>RESPUESTA3</th>
-                        <th>RESPUESTA4</th>
-                        <th>RESPUESTACORRECTA</th>
-                    </tr>";
-                }
+
+                $vector_preguntas = explode("," , $fila['RESPONSES']) ;
 
                 echo  # Mostramos la tabla
                     "<tr class=\"filasVerCalificaciones\" >
                     <td> ".$fila['IDPREG']." </td>
                     <td> ".$fila['ENUNCIADO']." </td>
-                    <td> ".$fila['RESP1']." </td>
-                    <td> ".$fila['RESP2']." </td>
-                    <td> ".$fila['RESP3']." </td>
-                    <td> ".$fila['RESP4']." </td>
-                    <td> ".$fila['RESP']." </td>
+                    <td> ".$vector_preguntas[0]." </td>
+                    <td> ".$vector_preguntas[1]." </td>
+                    <td> ".$vector_preguntas[2]." </td>
+                    <td> ".$vector_preguntas[3]." </td>
+                    <td> ".$fila['CORRECTA']." </td>
                     ";
                 echo "<tr>";
 
@@ -161,6 +163,18 @@ else
         $consulta_obtencion_temas = mysqli_query($conexionadmin , $obtencion_temas_de_una_asignatura) or die ("Problemas con la consulta de obtención de temas") ;
         $consulta_obtencion_temas_vector_unido = mysqli_fetch_array($consulta_obtencion_temas);
 
+        // Mostramos los encabezados de la tabla
+        echo " <table class=\"encabezadoTablaPreguntas\" > 
+                        <tr class = \"titulosMostrarPreguntas\">
+                            <th>IDPREGUNTA</th>
+                            <th>ENUNCIADO</th>
+                            <th>RESPUESTA1</th>
+                            <th>RESPUESTA2</th>
+                            <th>RESPUESTA3</th>
+                            <th>RESPUESTA4</th>
+                            <th>RESPUESTACORRECTA</th>
+                        </tr>";
+
         // # Separamos el vector
         $consulta_obtencion_temas_vector_separado = explode(',' , $consulta_obtencion_temas_vector_unido[0]) ;
         for ( $j = 0 ; $j < count($consulta_obtencion_temas_vector_separado) ; $j++ )
@@ -186,30 +200,18 @@ else
                 {
 
                     $fila = mysqli_fetch_array($consulta_mostrar_preguntas);
-                        
-                    if($i == 0) // Mostramos los encabezados
-                    {
-                        echo " <table class=\"encabezadoTablaPreguntas\" > 
-                        <tr class = \"titulosMostrarPreguntas\">
-                            <th>IDPREGUNTA</th>
-                            <th>ENUNCIADO</th>
-                            <th>RESPUESTA1</th>
-                            <th>RESPUESTA2</th>
-                            <th>RESPUESTA3</th>
-                            <th>RESPUESTA4</th>
-                            <th>RESPUESTACORRECTA</th>
-                        </tr>";
-                    }
+
+                    $vector_preguntas = explode("," , $fila['RESPONSES']) ;
 
                     echo  # Mostramos la tabla
                         "<tr class=\"filasVerCalificaciones\" >
                         <td> ".$fila['IDPREG']." </td>
                         <td> ".$fila['ENUNCIADO']." </td>
-                        <td> ".$fila['RESP1']." </td>
-                        <td> ".$fila['RESP2']." </td>
-                        <td> ".$fila['RESP3']." </td>
-                        <td> ".$fila['RESP4']." </td>
-                        <td> ".$fila['RESP']." </td>
+                        <td> ".$vector_preguntas[0]." </td>
+                        <td> ".$vector_preguntas[1]." </td>
+                        <td> ".$vector_preguntas[2]." </td>
+                        <td> ".$vector_preguntas[3]." </td>
+                        <td> ".$fila['CORRECTA']." </td>
                         ";
                     echo "<tr>";
 

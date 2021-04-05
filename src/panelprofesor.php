@@ -22,7 +22,7 @@ session_start();
 
 </head>
 <body>
-    <h1 style="column-span: all; text-align: center">Panel de control del Profesor: <?php echo $nombresesion." ".$apellsesion ?></h1>
+    <h1 style="column-span: all; text-align: center">Panel de control del Profesor <?php echo $nombresesion." ".$apellsesion ?></h1>
     <br></br>
 
         <table style="text-align: center;">
