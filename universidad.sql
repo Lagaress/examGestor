@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 05-04-2021 a las 18:32:16
+-- Tiempo de generación: 06-04-2021 a las 04:17:25
 -- Versión del servidor: 5.7.33-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.24-0ubuntu0.18.04.7
 
@@ -39,7 +39,7 @@ CREATE TABLE `alumno` (
 
 INSERT INTO `alumno` (`DNI`, `CURSO`, `GRADO`, `MATRICULADO`) VALUES
 ('11111111B', '3', 'GII', 'PW,EDNL,POO,AAED'),
-('33432443i', '4', 'GITI', 'TERMO,FLUIDOS,PW'),
+('33432443i', '4', 'GII', 'PW'),
 ('45611234T', '1', 'GII', 'IP,IG'),
 ('77178334q', '4', 'GII', 'EDNL,AAED,PW,PNET');
 
@@ -113,11 +113,11 @@ CREATE TABLE `examenes` (
 INSERT INTO `examenes` (`CODEX`, `FECHA`, `PASS`, `NUM_PREG`, `TEM`, `ASIG`) VALUES
 ('1', '2021-05-05', 'a', 2, '2', 'POO'),
 ('2', '2021-06-06', 'b', 1, '2', 'EDNL'),
+('3', '2021-04-01', 'c', 10, '5', 'PW'),
 ('4', '2021-06-06', 'c', 10, '5', 'PW'),
 ('5', '2021-04-06', 'c', 10, '5', 'PW'),
 ('6', '2021-06-04', 'c', 10, '5', 'PW'),
-('7', '2021-04-01', 'c', 10, '5', 'PW'),
-('3', '2021-04-01', 'c', 10, '5', 'PW');
+('7', '2021-04-01', 'c', 10, '5', 'PW');
 
 -- --------------------------------------------------------
 
@@ -143,8 +143,7 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`ID`, `NOMBRE`, `APELLIDOS`, `TIPO`, `DNI`, `PASS`, `USER`, `FOTO`) VALUES
 (3, 'admin   ', 'admin   ', 'ADMIN', '45611234T', 'admin ', 'administrador   ', 'default.jpg'),
 (28, 'gonzalo', 'ulibarri', 'ALUMNO', '77178334q', 'qwer', 'gonzalo', 'default.jpg'),
-(31, 'Juan Jose', 'Rodriguez', 'ALUMNO', '11111111B', 'qwer', 'jj
-', 'default.jpg'),
+(31, 'Juan Jose', 'Rodriguez', 'ALUMNO', '11111111B', 'qwer', 'jj\n', 'default.jpg'),
 (35, 'Patricio ', 'abelardo ', 'PROFESOR', '00000000p', '', 'patri ', ''),
 (36, 'Carlos', 'Vazquez', 'ALUMNO', '33432443i', 'miau', 'miau', 'default.jpg'),
 (38, 'admin 2', 'admin ', 'ADMIN', 'admin2 ', 'admin ', 'admin2 ', 'default.jpg'),
@@ -172,8 +171,17 @@ INSERT INTO `preguntas` (`IDPREG`, `TEMAID`, `ENUNCIADO`, `RESPONSES`, `CORRECTA
 (9, 5, 'Â¿QuÃ© es PHP?', 'Un lenguaje interpretado ,PHP,Una herramienta Ãºtil,Un lenguaje de programaciÃ³n', 'Un lenguaje interpretado'),
 (67, 7, 'Que es una lista', 'Un suspenso, un aprobado, la compra, una ed', 'una ed'),
 (100, 5, 'La respuesta es a', 'a,  b, c, d', 'a'),
-(101, 5, 'La respuesta es b', 'a,  b, c, d', 'b');
-
+(101, 5, 'La respuesta es b', 'a,  b, c, d', 'b'),
+(138, 5, 'Â¿QuÃ© es un framework?', 'No lo sÃ©,Un conjunto de herramientas,Un lenguaje de programaciÃ³n,Algo de C++', 'Un conjunto de herramientas'),
+(227, 5, 'Â¿QuÃ© significan las siglas PW?', 'No lo sÃ©,ProgramaciÃ³n Web,Punteros Wooleanos,Placas Warks', 'ProgramaciÃ³n Web'),
+(272, 5, 'Â¿QuÃ© son las cookies?', 'Elementos para manejar sesiones,Galletas,No lo sÃ©,Un dulce', 'Elementos para manejar sesiones'),
+(315, 5, 'Â¿QuÃ© es importante para que nuestra web se diferencie de las demÃ¡s?', 'Una propuesta diferencial,Que sea bonita,Que haga lo de las demÃ¡s,Que estÃ© escrita en Django', 'Una propuesta diferencial'),
+(321, 5, 'Â¿QuÃ© hacemos en esta asignatura?', 'Progrmar webs,No lo sÃ©,Laravel,Escribir cÃ³digo', 'Elementos para manejar sesiones'),
+(389, 5, 'Â¿QuÃ© es un vector asociativo? ', 'Un vector normal,No lo sÃ© ,Un vector clave valor,Un array', 'Un vector clave valor'),
+(411, 5, 'Â¿QuÃ© es Laravel?', 'Un framework,No lo sÃ©,Un lenguaje de programaciÃ³n,Un modelo vista controlador', 'Un framework'),
+(475, 5, 'Â¿QuÃ© significan las siglas TI?', 'TecnologÃ­as de la InformaciÃ³n,Tu InformaciÃ³n,No lo sÃ©,Tiestos Inutiles', 'TecnologÃ­as de la InformaciÃ³n'),
+(499, 5, 'Ejemplos de Framework:', 'PHP,C++,Django,Python', 'Django'),
+(600, 5, 'PHP es', 'Un lenguaje de programacion,algo horrible,no lo se, dejar en blanco', 'Un lenguaje de programacion');
 
 -- --------------------------------------------------------
 
@@ -228,7 +236,7 @@ INSERT INTO `temas` (`ID`, `NOMBRE`, `BATPREGUNTAS`) VALUES
 (1, 'Arboles', '1,2,3,4'),
 (2, 'Grafos', '5,6,7,8'),
 (4, 'PHP', '10,11'),
-(5, 'Programacion Web', '9,3,12,15,177,481,190,476'),
+(5, 'Programacion Web', '9,3,12,15,177,481,190,476,138,227,315,244,336,142,411,475,499,272,321,389'),
 (8, 'Listas', '100,200,300');
 
 --
@@ -302,7 +310,7 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `IDPREG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=484;
+  MODIFY `IDPREG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=601;
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
