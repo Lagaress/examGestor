@@ -39,9 +39,9 @@ CREATE TABLE `alumno` (
 
 INSERT INTO `alumno` (`DNI`, `CURSO`, `GRADO`, `MATRICULADO`) VALUES
 ('11111111B', '3', 'GII', 'PW,EDNL,POO,AAED'),
-('33432443i', '4', 'GITI', 'TERMO,FLUIDOS'),
+('33432443i', '4', 'GITI', 'TERMO,FLUIDOS,PW'),
 ('45611234T', '1', 'GII', 'IP,IG'),
-('77178334q', '4', 'GII', 'EDNl,AAED,PW,PNET');
+('77178334q', '4', 'GII', 'EDNL,AAED,PW,PNET');
 
 -- --------------------------------------------------------
 
@@ -113,8 +113,11 @@ CREATE TABLE `examenes` (
 INSERT INTO `examenes` (`CODEX`, `FECHA`, `PASS`, `NUM_PREG`, `TEM`, `ASIG`) VALUES
 ('1', '2021-05-05', 'a', 2, '2', 'POO'),
 ('2', '2021-06-06', 'b', 1, '2', 'EDNL'),
-('25', '2021-04-01', 'termo', 5, 'Termodinámica', 'TERMO'),
-('3', '2021-04-01', 'c', 10, 'Programacion Web', 'PW');
+('4', '2021-06-06', 'c', 10, '5', 'PW'),
+('5', '2021-04-06', 'c', 10, '5', 'PW'),
+('6', '2021-06-04', 'c', 10, '5', 'PW'),
+('7', '2021-04-01', 'c', 10, '5', 'PW'),
+('3', '2021-04-01', 'c', 10, '5', 'PW');
 
 -- --------------------------------------------------------
 
@@ -140,7 +143,8 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`ID`, `NOMBRE`, `APELLIDOS`, `TIPO`, `DNI`, `PASS`, `USER`, `FOTO`) VALUES
 (3, 'admin   ', 'admin   ', 'ADMIN', '45611234T', 'admin ', 'administrador   ', 'default.jpg'),
 (28, 'gonzalo', 'ulibarri', 'ALUMNO', '77178334q', 'qwer', 'gonzalo', 'default.jpg'),
-(31, 'Juan Jose', 'Rodriguez', 'ALUMNO', '11111111B', 'qwer', 'jj', 'default.jpg'),
+(31, 'Juan Jose', 'Rodriguez', 'ALUMNO', '11111111B', 'qwer', 'jj
+', 'default.jpg'),
 (35, 'Patricio ', 'abelardo ', 'PROFESOR', '00000000p', '', 'patri ', ''),
 (36, 'Carlos', 'Vazquez', 'ALUMNO', '33432443i', 'miau', 'miau', 'default.jpg'),
 (38, 'admin 2', 'admin ', 'ADMIN', 'admin2 ', 'admin ', 'admin2 ', 'default.jpg'),
@@ -167,53 +171,9 @@ CREATE TABLE `preguntas` (
 INSERT INTO `preguntas` (`IDPREG`, `TEMAID`, `ENUNCIADO`, `RESPONSES`, `CORRECTA`) VALUES
 (9, 5, 'Â¿QuÃ© es PHP?', 'Un lenguaje interpretado ,PHP,Una herramienta Ãºtil,Un lenguaje de programaciÃ³n', 'Un lenguaje interpretado'),
 (67, 7, 'Que es una lista', 'Un suspenso, un aprobado, la compra, una ed', 'una ed'),
-(100, 5, 'Que esun framework', 'No lo se, quien sabe, wtf, una herramienta', 'una herramienta'),
-(113, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(120, 5, '133', '123123312,123123,3123123,131213', '3'),
-(126, 5, 'Esto es el nuevo enunciado', 'd,w,4131s,e', 'e'),
-(132, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(134, 5, '1312', '12331232,123,123123,1312', '1312'),
-(151, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(156, 5, '133', '123123312,123123,3123123,131213', '3'),
-(157, 5, '133', '123123312,123123,3123123,131213', '3'),
-(162, 5, 'Hola muy buenas', 'Hey ,Que tal,No,Si', 'Si'),
-(166, 5, 'Este es un gran enunciado', 'Enunciado,Oracion,Frase,Perifrases', 'Enunciado'),
-(171, 5, '133', '123123312,123123,3123123,131213', '3'),
-(175, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(178, 5, '2', '1,3,4131s,5', '3'),
-(193, 5, '133', '123123312,123123,3123123,131213', '3'),
-(195, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(208, 5, '133', '123123312,123123,3123123,131213', '3'),
-(210, 5, '1312', '12331232,123,123123,1312', '1312'),
-(220, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(233, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(234, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(235, 5, '2', '1,3,4131s,5', '3'),
-(269, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(271, 5, '133', '123123312,123123,3123123,131213', '3'),
-(280, 5, '133', '123123312,123123,3123123,131213', '3'),
-(288, 5, '133', '123123312,123123,3123123,131213', '3'),
-(301, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(315, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(321, 4, 'Qué es PHP', 'Lo peor que se ha creado, un lenguaje, no lo se, unas siglas', 'un lenguaje'),
-(331, 5, 'Esto es el nuevo enunciado', 'd,w,4131s,e', 'e'),
-(347, 5, '1312', '12331232,123,123123,1312', '1312'),
-(350, 5, 'Esto es el nuevo enunciado', 'd,w,4131s,e', 'e'),
-(372, 5, '2', '1,3,4131s,5', '3'),
-(381, 5, 'prg', '1,2,3,4', '1'),
-(386, 5, '133', '123123312,123123,3123123,131213', '3'),
-(404, 5, 'Esto es el nuevo enunciado', 'd,w,4131s,e', 'e'),
-(407, 5, '133', '123123312,123123,3123123,131213', '3'),
-(409, 5, 'Nueva pregutna', '1,2,3,4', '3'),
-(411, 5, '133', '123123312,123123,3123123,131213', '3'),
-(417, 5, 'Esto es el nuevo enunciado', 'd,w,4131s,e', 'e'),
-(431, 5, '1312', '12331232,123,123123,1312', '1312'),
-(443, 5, 'prg', '1,2,3,4', '1'),
-(446, 5, '2', '1,3,4131s,5', '3'),
-(461, 5, 'prg', '1,2,3,4', '1'),
-(463, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene'),
-(476, 5, 'Â¿QuÃ© es un framework?', 'Una asignatura del GII. ,Unas siglas. ,Un vector normal,Una herramienta Ãºtil ', 'Una herramienta Ãºtil '),
-(483, 5, 'Â¿De que color es el pelo de Pedro?', 'Azul,amarillo,rojo,no tiene', 'no tiene');
+(100, 5, 'La respuesta es a', 'a,  b, c, d', 'a'),
+(101, 5, 'La respuesta es b', 'a,  b, c, d', 'b');
+
 
 -- --------------------------------------------------------
 
