@@ -36,8 +36,8 @@
 
     $archivo = basename($_FILES['archivo']['name']);
 
-    if($archivo==NULL)
-        $archivo='default.jpg';
+    ////if($archivo==NULL)
+    //    $archivo='default.jpg';
     $subir_archivo = $directorio.$archivo;
 
 

@@ -40,7 +40,7 @@ if ( !empty($vector_de_preguntas) )
 if ( !empty($nuevaRespCorrecta) )
 {
 
-    mysqli_query ($update , "UPDATE preguntas SET RESP ='$nuevaRespCorrecta' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
+    mysqli_query ($update , "UPDATE preguntas SET CORRECTA ='$nuevaRespCorrecta' WHERE IDPREG='$valorDeLaPregunta'" ) ;  
     $contadorDeCambios++ ;
 
 
