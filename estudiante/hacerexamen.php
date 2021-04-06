@@ -38,11 +38,10 @@ if (isset($_GET['Identificador'])){
         {   
             $preg[$j] = $row['IDPREG'];
             mysqli_query($db ,"INSERT INTO respuestas  (ID_PREG,ALUM_DNI,COD_EX ) VALUES ( $preg[$j], '$dni' , '$id')");
-
-            echo '<b>'.($j+1).'. '.$row['ENUNCIADO'].'</b>'; 
+            echo '<b>'.($j+1).'. '.$row['ENUNCIADO'].'</b><input type="hidden" name=preg['.$j.'] value='.$preg[$j]."' />"; 
             $ArrayResp = explode(',' , $row['RESPONSES']);   
             for ( $i = 0 ; $i < count($ArrayResp) ; $i++ ){
-                echo '<br> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=response['.$j.']'." value='".$ArrayResp[$i],"' />".$ArrayResp[$i]; 
+                echo '<br> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name=response['.$j.']'." value='".$ArrayResp[$i]."' />".$ArrayResp[$i]; 
             }
             echo '<br>';
             $j++;
@@ -53,30 +52,25 @@ if (isset($_GET['Identificador'])){
 }
 
 if(isset($_POST['submited'])){
-    echo 'uwu';
     $response = $_POST['response'];
+    $preg = $_POST['preg'];
     
     $QueryNumPreg= mysqli_query($db,"SELECT NUM_PREG FROM examenes WHERE CODEX='$id'" );
-    echo "SELECT NUM_PREG FROM examenes WHERE CODEX='$id'<br>";
     $NumPreg = mysqli_fetch_array($QueryNumPreg)[0];
-    echo "NumPReg ".$NumPreg."<br>";
 
     for ( $i = 0 ; $i < count($response) ; $i++ ){
-        mysqli_query($db ,"UPDATE respuestas  SET RESPALUMN='$response[$i]' WHERE ID_PREG='$preg[$i]' AND ALUM_DNI='$dni' AND COD_EX='$id' ");
-        echo "UPDATE respuestas  SET RESPALUMN='$response[$i]' WHERE ID_PREG='$preg[$i]' AND ALUM_DNI='$dni' AND COD_EX='$id' <br>";
-        $result = mysqli_query($db,"SELECT * FROM preguntas WHERE IDPREG='$preg[$i]' AND CORRECTA='$response[$i]' " );
-        echo "SELECT * FROM preguntas WHERE IDPREG='$preg[$i]' AND CORRECTA='$response[$i]'<br>";
-        if( mysqli_num_rows($result)){
+        mysqli_query($db ,"UPDATE respuestas  SET RESPALUMN='$response[$i]' WHERE ID_PREG='$preg[$i] AND ALUM_DNI='$dni' AND COD_EX='$id' ");
+        $result = mysqli_query($db,"SELECT * FROM preguntas WHERE IDPREG='$preg[$i] AND CORRECTA='$response[$i]' " );
+        if( mysqli_num_rows($result) > 0){
             $Nota += 10/$NumPreg;
-            echo $Nota;
         }
     }
 
-    mysqli_query($db ,"UPDATE calificaciones SET NOTA=$nota WHERE ALUM_DNI='$dni' AND COD_EX='$id'");
-    echo "UPDATE calificaciones SET NOTA=$nota WHERE ALUM_DNI='$dni' AND COD_EX='$id'";
-
-    header('location: /estudiante/examenes.php');
+    mysqli_query($db ,"UPDATE calificaciones SET NOTA=$Nota WHERE ALUM_DNI='$dni' AND COD_EX='$id'");
+    
+    header("Location:/estudiante/calificaciones.php");
     exit;
+
 }
 
 ?>
